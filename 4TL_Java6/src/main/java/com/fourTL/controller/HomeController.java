@@ -11,4 +11,14 @@ public class HomeController {
 	private String index(Model model) {
 		return "site/home";
 	}
+	
+	@GetMapping("/login")
+	private String test(Model model) {
+		return "site/login";
+	}
+	
+	@GetMapping("/category")
+	private String test1(Model model) {
+		return "site/category";
+	}
 }
