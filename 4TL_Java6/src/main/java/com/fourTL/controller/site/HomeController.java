@@ -1,4 +1,4 @@
-package com.fourTL.controller;
+package com.fourTL.controller.site;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,15 +10,5 @@ public class HomeController {
 	@GetMapping("/")
 	private String index(Model model) {
 		return "site/home";
-	}
-	
-	@GetMapping("/login")
-	private String test(Model model) {
-		return "site/login";
-	}
-	
-	@GetMapping("/category")
-	private String test1(Model model) {
-		return "site/category";
 	}
 }
