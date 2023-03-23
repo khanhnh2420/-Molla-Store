@@ -875,7 +875,7 @@ img.banner-title-img,
 .image-bg-body {
     background-image: url("../../images/demos/demo-19/bg-body.gif");
     background-position: center center;
-    height: 90%;
+    height: 100%;
     width: 115%;
     z-index: -1;
     margin-left: -20%;
