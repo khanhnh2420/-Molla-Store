@@ -19942,3 +19942,6 @@ button:focus {
 
 
 /* CUSTOM CSS*/
+#tableOrderDetail th, #tableOrderDetail td {
+	padding: 1.4rem;
+}

@@ -121,7 +121,8 @@
 													SHOP</span><i class="icon-long-arrow-right"></i></a>
 										</div>
 
-										<table class="table table-bordered text-center" th:if="user.orders.empty">
+										<table class="table table-bordered text-center"
+											th:if="user.orders.empty">
 											<caption
 												style="caption-side: top; text-align: center; font-size: 3rem; font-weight: 800;">ORDERS</caption>
 											<thead>
@@ -148,6 +149,8 @@
 													<td th:if="*{status} == 'Chờ xử lý'"><i
 														class="fa-solid fa-spinner" style="color: #ffcc14;"></i></td>
 													<td><a class="btn btn-outline-primary-2"
+														th:attr="ng-click='showModal(\''+*{id}+'\')'" 
+														 
 														style="min-width: 30px; border-radius: 10%; cursor: pointer; padding: 0.55rem 1rem;">Details</a>
 													</td>
 												</tr>
@@ -167,6 +170,54 @@
 				<!-- End .dashboard -->
 			</div>
 			<!-- End .page-content -->
+
+			<!-- Modal Detail order-->
+			<div id="modalDetailOrder" class="modal fade" tabindex="-1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 70%;">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel"
+								style="caption-side: top; text-align: center; font-size: 3rem; font-weight: 800;">ORDER
+								DETAILS</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true"><i class="icon-close"></i></span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<table class="table table-bordered text-center mt-3" id="tableOrderDetail"
+								th:if="user.orders.empty">
+								<thead>
+									<tr>
+										<th scope="col">Poster</th>
+										<th scope="col">Name</th>
+										<th scope="col">Category</th>
+										<th scope="col">Details</th>
+										<th scope="col">Quantity</th>
+										<th scope="col">Price</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="item in orderDetail">
+										<td style="width: 100px; padding: 0px;"> <img alt="" src="/assets/images/products/single/masonry/{{item.product.poster}}" style="padding: 2rem;"> </td>
+										<td>{{item.product.name}}</td>
+										<td>{{item.product.category.name}}</td>
+										<td>{{item.product.details}}</td>		
+										<td>1</td>
+										<td>{{formatCurrency(item.price)}} VNĐ</td>			
+									</tr>
+								</tbody>
+							</table>
+							<h4 class="d-flex flex-row-reverse mb-3" style="margin-right: 2rem;">Total Price: {{formatCurrency(totalPrice)}} VNĐ</h4>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</main>
 	</div>
 
