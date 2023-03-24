@@ -46,8 +46,8 @@
 										th:href="@{/login/form}">Sign in / Sign up</a></li>
 
 									<li th:if="${#authorization.expression('isAuthenticated()')}"><a
-										th:href="@{/account}">[[${#authentication.name}]]</a> | <a
-										th:href="@{/logout}">Sign Out</a></li>
+										th:href="@{|/account?username=${#authentication.name}|}">[[${#authentication.name}]]</a>
+										| <a th:href="@{/logout}">Sign Out</a></li>
 								</ul></li>
 						</ul>
 						<!-- End .top-menu -->
@@ -97,7 +97,15 @@
 					<div class="header-right">
 						<div class="header-dropdown-link">
 							<div class="account">
-								<a th:href="@{/account}" title="My account">
+								<a th:if="${not #authorization.expression('isAuthenticated()')}"
+									th:href="@{/logout}" title="My account">
+									<div class="icon">
+										<i class="icon-user"></i>
+									</div>
+									<p>Account</p>
+								</a> <a th:if="${#authorization.expression('isAuthenticated()')}"
+									th:href="@{|/account?username=${#authentication.name}|}"
+									title="My account">
 									<div class="icon">
 										<i class="icon-user"></i>
 									</div>

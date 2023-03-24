@@ -16,9 +16,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Accounts](
 	[Username] [nvarchar](50) NOT NULL,
-	[Password] [nvarchar](50) NOT NULL,
+	[Password] [nvarchar](60) NOT NULL,
 	[Fullname] [nvarchar](50) NOT NULL,
 	[Email] [nvarchar](50) NOT NULL,
+	[Address] [nvarchar](255) NOT NULL,
 	[Photo] [nvarchar](50) NOT NULL,
  CONSTRAINT [PK_Customers] PRIMARY KEY CLUSTERED 
 (
@@ -141,17 +142,20 @@ CREATE TABLE [dbo].[Roles](
 ) ON [PRIMARY]
 
 GO
-INSERT INTO [dbo].[Accounts] ([Username], [Password], [Fullname], [Email], [Photo])
-VALUES ('nguyenvana', '123456', N'Nguyễn Văn A', 'nguyenvana@gmail.com', 'user.png'),
-       ('tranvanb', '654321', N'Trần Văn B', 'tranvanb@gmail.com', 'user.png'),
-       ('phamthuc', 'abc123', N'Phạm Thục', 'phamthuc@gmail.com', 'user.png'),
-       ('lethuhien', 'xyz789', N'Lê Thùy Hiền', 'lethuhien@gmail.com', 'user.png'),
-       ('dangkimchi', 'qwerty', N'Đặng Kim Chi', 'dangkimchi@gmail.com', 'user.png'),
-       ('nguyenhongnhan', '1q2w3e', N'Nguyễn Hồng Nhân', 'nguyenhongnhan@gmail.com', 'user.png'),
-       ('lethithuy', 'a1b2c3', N'Lê Thị Thúy', 'lethithuy@gmail.com', 'user.png'),
-       ('tranthanhthao', '32132', N'Trần Thanh Thảo', 'tranthanhthao@gmail.com', 'user.png'),
-       ('nguyenvanbao', 'secret', N'Nguyễn Văn Bảo', 'nguyenvanbao@gmail.com', 'user.png'),
-       ('hoangtunglam', 'letmein', N'Hoàng Tùng Lâm', 'hoangtunglam@gmail.com', 'user.png');
+INSERT INTO [dbo].[Accounts] ([Username], [Password], [Fullname], [Email], [Address], [Photo])
+VALUES ('nguyenvana', '123456', N'Nguyễn Văn A', 'nguyenvana@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png'),
+       ('tranvanb', '654321', N'Trần Văn B', 'tranvanb@gmail.com', N'99 Lê Lợi, Quận 5, TP. HCM', 'user.png'),
+       ('phamthuc', 'abc123', N'Phạm Thục', 'phamthuc@gmail.com', N'78 Cách Mạng Tháng 8, Quận 3, TP. HCM', 'user.png'),
+       ('lethuhien', 'xyz789', N'Lê Thùy Hiền', 'lethuhien@gmail.com', N'22 Bà Huyện Thanh Quan, Quận 1, TP. HCM', 'user.png'),
+       ('dangkimchi', 'qwerty', N'Đặng Kim Chi', 'dangkimchi@gmail.com', N'45 Nguyễn Thị Minh Khai, Quận 1, TP. HCM', 'user.png'),
+       ('nguyenhongnhan', '1q2w3e', N'Nguyễn Hồng Nhân', 'nguyenhongnhan@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png'),
+       ('lethithuy', 'a1b2c3', N'Lê Thị Thúy', 'lethithuy@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png'),
+       ('tranthanhthao', '32132', N'Trần Thanh Thảo', 'tranthanhthao@gmail.com', N'78 Cách Mạng Tháng 8, Quận 3, TP. HCM', 'user.png'),
+       ('nguyenvanbao', 'secret', N'Nguyễn Văn Bảo', 'nguyenvanbao@gmail.com', N'102 Lý Tự Trọng, Quận 1, TP. HCM', 'user.png'),
+       ('hoangtunglam', 'letmein', N'Hoàng Tùng Lâm', 'hoangtunglam@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png'),
+	   ('dire', '123', N'Quản Lý', 'dire@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png'),
+	   ('cust', '123', N'Người dùng', 'cust@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png'),
+	   ('staf', '123', N'Nhân Viên', 'staf@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png')
 
 SET IDENTITY_INSERT [dbo].[Authorities] ON 
 INSERT INTO [dbo].[Authorities] ([Id], [Username], [RoleId])
@@ -240,18 +244,18 @@ GO
 
 INSERT INTO [dbo].[Products] ([Id], [Name], [Poster], [Thumbnail], [Price], [CreateDate], [Available], [Source], [Details], [CategoryId]) 
 VALUES 
-(1, N'Assassin Creed Valhalla', N'Assassin-Creed-Valhalla.jpg', N'Assassin-Creed-Valhalla_Thumbnail.jpg', 200000, '2021-01-10', 1, N'Ubisoft', N'Assassin Creed Valhalla là phiên bản mới nhất của dòng game hành động nhập vai lịch sử nổi tiếng Assassin Creed. Trong game, người chơi sẽ hóa thân thành Eivor, một vị vua hoặc nữ hoàng của người Viking, và tham gia vào cuộc chiến giữa người Viking và quân đội của người Anh vào thế kỷ thứ 9.', 'HD'),
-(2, N'Grand Theft Auto V', N'GTAV.jpg', N'GTAV_Thumbnail.jpg', 114000, '2021-02-15', 1, N'Rockstar Games', N'Grand Theft Auto V là phiên bản thứ 5 trong loạt game Grand Theft Auto. Trong game, người chơi sẽ được đưa đến thành phố hư cấu Los Santos và có thể tham gia vào các nhiệm vụ để kiếm tiền và trở thành tay mafia lừng danh.', 'HD'),
-(3, N'Resident Evil Village', N'Resident-Evil-Village.jpg', N'Resident-Evil-Village_Thumbnail.jpg', 150000, '2021-04-23', 1, N'Capcom', N'Resident Evil Village là phiên bản mới nhất trong loạt game kinh dị Resident Evil. Trong game, người chơi sẽ hóa thân thành Ethan Winters, nhân vật chính của phần 7, và tham gia vào cuộc chiến với những sinh vật kinh dị để cứu người vợ của mình.', 'KD'),
-(4, N'FIFA 22', N'FIFA-22.jpg', N'FIFA-22_Thumbnail.jpg', 432000, '2021-09-27', 1, N'Electronic Arts', N'FIFA 22 là phiên bản mới nhất của loạt game bóng đá FIFA. Trong game, người chơi sẽ được trải nghiệm các giải đấu bóng đá hàng đầu thế giới và cạnh tranh với các đội bóng khác để giành chiến thắng.', 'TT'),
-(5, N'The Witcher 3: Wild Hunt', N'TheWitcher3_WildHunt.jpg', N'TheWitcher3_Thumbnail.jpg', 70000, '2021-03-01', 1, N'Steam', N'The Witcher 3: Wild Hunt là một trò chơi nhập vai thế giới mở dựa trên câu chuyện, được thiết lập trong một vũ trụ huyền bí đầy hấp dẫn về lựa chọn có ý nghĩa và hậu quả tác động. Trong The Witcher, bạn vào vai Geralt of Rivia, một thợ săn quái vật chuyên nghiệp được giao nhiệm vụ tìm kiếm một đứa trẻ của tiên tri trong một thế giới mở rộng lớn với những thành phố thương gia, các hòn đảo cướp biển, những đường đèo núi nguy hiểm và những hang động bị lãng quên để khám phá.', 'NV'),
-(6, N'Minecraft', N'Minecraft.jpg', N'Minecraft_Thumbnail.jpg', 299000, '2022-02-15', 1, N'Mojang', N'Game sinh tồn thế giới mở.', 'MP'),
-(7, N'Genshin Impact', N'GI.jpg', N'GI_Thumbnail.jpg', 200000, '2022-02-12', 1, N'Mihoyo', N'Game nhập vai phiêu lưu thế giới mở đầy hấp dẫn.', 'PL'),
-(8, N'Among Us', N'AmongUs.jpg', N'AmongUs_Thumbnail.jpg', 59900, '2022-02-08', 1, N'InnerSloth', N'Game trinh thám nhiệm vụ thực hiện trong tàu vũ trụ.', 'CT'),
-(9, N'League of Legends', N'lmht.jpg', N'lmht_Thumbnail.jpg', 50000, '2022-02-06', 1, N'Riot Games', N'Game chiến đấu 5v5 eSports phong cách MOBA.', 'MOBA'),
-(10, N'Diablo III', N'Diablo3.jpg', N'Diablo3_Thumbnail.jpg', 199000, '2022-02-03', 1, N'Blizzard Entertainment', N'Game nhập vai hành động phiêu lưu.', 'NV'),
-(11, N'Counter Strike: Global Offensive', N'CS.jpg', N'CS_Thumbnail.jpg', 300000, '2022-01-29', 1, N'Valve Corporation', N'Game bắn súng trực tuyến FPS.', 'FPS'),
-(12, N'Dota 2', N'Dota2.jpg', N'Dota2_Thumbnail.jpg', 150000, '2022-01-27', 1, N'Valve Corporation', N'Game chiến đấu eSports phong cách MOBA.', 'MOBA')
+(1, N'Assassin Creed Valhalla', N'Valhalla.jpg', N'Valhalla-thumb.jpg-*-Valhalla-thumb2.jpg-*-Valhalla-thumb3.jpg', 200000, '2021-01-10', 1, N'Ubisoft', N'Assassin Creed Valhalla là phiên bản mới nhất của dòng game hành động nhập vai lịch sử nổi tiếng Assassin Creed. Trong game, người chơi sẽ hóa thân thành Eivor, một vị vua hoặc nữ hoàng của người Viking, và tham gia vào cuộc chiến giữa người Viking và quân đội của người Anh vào thế kỷ thứ 9.', 'HD'),
+(2, N'Grand Theft Auto V', N'GTA.jpg', N'GTA-thumb.jpg-*-GTA-thumb2.jpg-*-GTA-thumb3.jpg', 114000, '2021-02-15', 1, N'Rockstar Games', N'Grand Theft Auto V là phiên bản thứ 5 trong loạt game Grand Theft Auto. Trong game, người chơi sẽ được đưa đến thành phố hư cấu Los Santos và có thể tham gia vào các nhiệm vụ để kiếm tiền và trở thành tay mafia lừng danh.', 'HD'),
+(3, N'Resident Evil Village', N'REV.jpg', N'REV-thumb.jpg-*-REV-thumb2.jpg-*-REV-thumb3.png', 150000, '2021-04-23', 1, N'Capcom', N'Resident Evil Village là phiên bản mới nhất trong loạt game kinh dị Resident Evil. Trong game, người chơi sẽ hóa thân thành Ethan Winters, nhân vật chính của phần 7, và tham gia vào cuộc chiến với những sinh vật kinh dị để cứu người vợ của mình.', 'KD'),
+(4, N'FIFA 22', N'FF22.png', N'FF22-thumb.png-*-FF22-thumb2.png-*-FF22-thumb3.png', 432000, '2021-09-27', 1, N'Electronic Arts', N'FIFA 22 là phiên bản mới nhất của loạt game bóng đá FIFA. Trong game, người chơi sẽ được trải nghiệm các giải đấu bóng đá hàng đầu thế giới và cạnh tranh với các đội bóng khác để giành chiến thắng.', 'TT'),
+(5, N'The Witcher 3: Wild Hunt', N'WC3.jpg', N'WC3-thumb.jpeg-*-WC3-thumb2.jpg-*-WC3-thumb3.jpg', 70000, '2021-03-01', 1, N'Steam', N'The Witcher 3: Wild Hunt là một trò chơi nhập vai thế giới mở dựa trên câu chuyện, được thiết lập trong một vũ trụ huyền bí đầy hấp dẫn về lựa chọn có ý nghĩa và hậu quả tác động. Trong The Witcher, bạn vào vai Geralt of Rivia, một thợ săn quái vật chuyên nghiệp được giao nhiệm vụ tìm kiếm một đứa trẻ của tiên tri trong một thế giới mở rộng lớn với những thành phố thương gia, các hòn đảo cướp biển, những đường đèo núi nguy hiểm và những hang động bị lãng quên để khám phá.', 'NV'),
+(6, N'Minecraft', N'MC.jpg', N'MC-thumb.jpg-*-MC-thumb2.jpg-*-MC-thumb3.jpg', 299000, '2022-02-15', 1, N'Mojang', N'Game sinh tồn thế giới mở.', 'MP'),
+(7, N'Genshin Impact', N'GI.jpg', N'GI-thumb.jpg-*-GI-thumb2.jpg-*-GI-thumb3.jpg', 200000, '2022-02-12', 1, N'Mihoyo', N'Game nhập vai phiêu lưu thế giới mở đầy hấp dẫn.', 'PL'),
+(8, N'Among Us', N'AU.jpg', N'AU-thumb.jpg-*-AU-thumb2.jpg-*-AU-thumb3.jpg', 59900, '2022-02-08', 1, N'InnerSloth', N'Game trinh thám nhiệm vụ thực hiện trong tàu vũ trụ.', 'CT'),
+(9, N'League of Legends', N'LOL.jpg', N'LOL-thumb.jpg-*-LOL-thumb2.png-*-LOL-thumb3.webp', 50000, '2022-02-06', 1, N'Riot Games', N'Game chiến đấu 5v5 eSports phong cách MOBA.', 'MOBA'),
+(10, N'Diablo III', N'DIABLO.jpg', N'DB-thumb.jpg-*-DB-thumb2.jpg-*-Db-thumb3.jpg', 199000, '2022-02-03', 1, N'Blizzard Entertainment', N'Game nhập vai hành động phiêu lưu.', 'NV'),
+(11, N'Counter Strike: Global Offensive', N'CSGO.jpg', N'CSGO-thumb.png-*-CSGO-thumb2.webp-*-CSGO-thumb3.webp', 300000, '2022-01-29', 1, N'Valve Corporation', N'Game bắn súng trực tuyến FPS.', 'FPS'),
+(12, N'Dota 2', N'DOTA.jpg', N'DOTA-thumb.jpg-*-DOTA-thumb2.jpg-*-DOTA-thumb3.jpg', 150000, '2022-01-27', 1, N'Valve Corporation', N'Game chiến đấu eSports phong cách MOBA.', 'MOBA')
 
 SET IDENTITY_INSERT [dbo].[Products] OFF
 INSERT [dbo].[Roles] ([Id], [Name]) VALUES (N'CUST', N'Người Dùng')

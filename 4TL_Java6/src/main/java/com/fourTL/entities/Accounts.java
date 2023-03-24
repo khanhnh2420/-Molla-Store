@@ -20,6 +20,7 @@ public class Accounts  implements Serializable{
 	String password;
 	String fullname;
 	String email;
+	String address;
 	String photo;
 	@JsonIgnore
 	@OneToMany(mappedBy = "account")
