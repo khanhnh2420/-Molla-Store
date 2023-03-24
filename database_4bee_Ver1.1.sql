@@ -143,19 +143,19 @@ CREATE TABLE [dbo].[Roles](
 
 GO
 INSERT INTO [dbo].[Accounts] ([Username], [Password], [Fullname], [Email], [Address], [Photo])
-VALUES ('nguyenvana', '123456', N'Nguyễn Văn A', 'nguyenvana@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png'),
-       ('tranvanb', '654321', N'Trần Văn B', 'tranvanb@gmail.com', N'99 Lê Lợi, Quận 5, TP. HCM', 'user.png'),
-       ('phamthuc', 'abc123', N'Phạm Thục', 'phamthuc@gmail.com', N'78 Cách Mạng Tháng 8, Quận 3, TP. HCM', 'user.png'),
-       ('lethuhien', 'xyz789', N'Lê Thùy Hiền', 'lethuhien@gmail.com', N'22 Bà Huyện Thanh Quan, Quận 1, TP. HCM', 'user.png'),
-       ('dangkimchi', 'qwerty', N'Đặng Kim Chi', 'dangkimchi@gmail.com', N'45 Nguyễn Thị Minh Khai, Quận 1, TP. HCM', 'user.png'),
-       ('nguyenhongnhan', '1q2w3e', N'Nguyễn Hồng Nhân', 'nguyenhongnhan@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png'),
-       ('lethithuy', 'a1b2c3', N'Lê Thị Thúy', 'lethithuy@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png'),
-       ('tranthanhthao', '32132', N'Trần Thanh Thảo', 'tranthanhthao@gmail.com', N'78 Cách Mạng Tháng 8, Quận 3, TP. HCM', 'user.png'),
-       ('nguyenvanbao', 'secret', N'Nguyễn Văn Bảo', 'nguyenvanbao@gmail.com', N'102 Lý Tự Trọng, Quận 1, TP. HCM', 'user.png'),
-       ('hoangtunglam', 'letmein', N'Hoàng Tùng Lâm', 'hoangtunglam@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png'),
-	   ('dire', '123', N'Quản Lý', 'dire@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png'),
-	   ('cust', '123', N'Người dùng', 'cust@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png'),
-	   ('staf', '123', N'Nhân Viên', 'staf@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png')
+VALUES ('nguyenvana', '$2a$10$REel/nhIn4pF8JssL84rcu1m82mRO71eIwPcGA7GX17OAHuRfdsRq', N'Nguyễn Văn A', 'nguyenvana@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png'),
+       ('tranvanb', '$2a$10$REel/nhIn4pF8JssL84rcu1m82mRO71eIwPcGA7GX17OAHuRfdsRq', N'Trần Văn B', 'tranvanb@gmail.com', N'99 Lê Lợi, Quận 5, TP. HCM', 'user.png'),
+       ('phamthuc', '$2a$10$REel/nhIn4pF8JssL84rcu1m82mRO71eIwPcGA7GX17OAHuRfdsRq', N'Phạm Thục', 'phamthuc@gmail.com', N'78 Cách Mạng Tháng 8, Quận 3, TP. HCM', 'user.png'),
+       ('lethuhien', '$2a$10$REel/nhIn4pF8JssL84rcu1m82mRO71eIwPcGA7GX17OAHuRfdsRq', N'Lê Thùy Hiền', 'lethuhien@gmail.com', N'22 Bà Huyện Thanh Quan, Quận 1, TP. HCM', 'user.png'),
+       ('dangkimchi', '$2a$10$REel/nhIn4pF8JssL84rcu1m82mRO71eIwPcGA7GX17OAHuRfdsRq', N'Đặng Kim Chi', 'dangkimchi@gmail.com', N'45 Nguyễn Thị Minh Khai, Quận 1, TP. HCM', 'user.png'),
+       ('nguyenhongnhan', '$2a$10$REel/nhIn4pF8JssL84rcu1m82mRO71eIwPcGA7GX17OAHuRfdsRq', N'Nguyễn Hồng Nhân', 'nguyenhongnhan@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png'),
+       ('lethithuy', '$2a$10$REel/nhIn4pF8JssL84rcu1m82mRO71eIwPcGA7GX17OAHuRfdsRq', N'Lê Thị Thúy', 'lethithuy@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png'),
+       ('tranthanhthao', '$2a$10$REel/nhIn4pF8JssL84rcu1m82mRO71eIwPcGA7GX17OAHuRfdsRq', N'Trần Thanh Thảo', 'tranthanhthao@gmail.com', N'78 Cách Mạng Tháng 8, Quận 3, TP. HCM', 'user.png'),
+       ('nguyenvanbao', '$2a$10$REel/nhIn4pF8JssL84rcu1m82mRO71eIwPcGA7GX17OAHuRfdsRq', N'Nguyễn Văn Bảo', 'nguyenvanbao@gmail.com', N'102 Lý Tự Trọng, Quận 1, TP. HCM', 'user.png'),
+       ('hoangtunglam', '$2a$10$REel/nhIn4pF8JssL84rcu1m82mRO71eIwPcGA7GX17OAHuRfdsRq', N'Hoàng Tùng Lâm', 'hoangtunglam@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png'),
+	   ('dire', '$2a$10$REel/nhIn4pF8JssL84rcu1m82mRO71eIwPcGA7GX17OAHuRfdsRq', N'Quản Lý', 'dire@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png'),
+	   ('cust', '$2a$10$REel/nhIn4pF8JssL84rcu1m82mRO71eIwPcGA7GX17OAHuRfdsRq', N'Người dùng', 'cust@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png'),
+	   ('staf', '$2a$10$REel/nhIn4pF8JssL84rcu1m82mRO71eIwPcGA7GX17OAHuRfdsRq', N'Nhân Viên', 'staf@gmail.com', N'12 Nguyễn Du, Quận 1, TP. HCM', 'user.png')
 
 SET IDENTITY_INSERT [dbo].[Authorities] ON 
 INSERT INTO [dbo].[Authorities] ([Id], [Username], [RoleId])
@@ -169,7 +169,10 @@ VALUES
 (7, N'lethithuy', N'STAF'),
 (8, N'tranthanhthao', N'STAF'),
 (9, N'nguyenvanbao', N'CUST'),
-(10, N'hoangtunglam', N'CUST')
+(10, N'hoangtunglam', N'CUST'),
+(11, N'dire', N'DIRE'),
+(12, N'cust', N'CUST'),
+(13, N'staf', N'STAF')
 
 
 SET IDENTITY_INSERT [dbo].[Authorities] OFF

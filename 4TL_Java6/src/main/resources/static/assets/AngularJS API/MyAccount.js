@@ -4,6 +4,7 @@ app.controller("MyAccount", function($scope, $http, $location) {
 	$scope.orderDetail = [];
 	$scope.totalPrice = 0;
 
+	// Show modal order details
 	$scope.showModal = function(orderId) {
 		$('#modalDetailOrder').modal('show');
 		var url = `${host}/orders/${orderId}`;
