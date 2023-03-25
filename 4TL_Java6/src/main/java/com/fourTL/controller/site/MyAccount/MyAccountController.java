@@ -1,4 +1,4 @@
-package com.fourTL.controller.site;
+package com.fourTL.controller.site.MyAccount;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

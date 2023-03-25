@@ -63,52 +63,73 @@
 								<div class="tab-content">
 									<div class="tab-pane fade show active" id="tab-dashboard"
 										role="tabpanel" aria-labelledby="tab-dashboard-link">
-										<form action="#" th:object="${user}">
+										<form>
 											<div class="text-center mb-4">
 												<div class="avatar-wrapper">
 													<img class="profile-pic"
-														th:src="@{|/assets/images/users/*{photo}|}" alt="Avatar" />
+														src="/assets/images/users/{{form.photo}}" alt="Avatar" />
 													<div class="upload-button">
 														<i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
 													</div>
-													<input class="file-upload" type="file" accept="image/*" />
+													<input class="file-upload" type="file" multiple
+														id="fileInput" accept="image/*" />
 												</div>
 
 												<h5
 													style="margin-bottom: 1rem; font-weight: 900; font-size: 2.9rem;">
-													<strong th:text="*{username}">nguyenvana</strong>
+													<strong id="AccountID">[[${#authentication.name}]]</strong>
 												</h5>
 												<p class="text-muted" style="font-size: 1.8rem;">
-													<i>#[[*{authorities[0].role.id}]]</i>
+													<i>#[[${#authorization.expression('hasRole(''CUST'')')
+														? 'CUST' : ''}]]</i>
 												</p>
 											</div>
 											<div class="row">
 												<div class="col-sm-6">
 													<label>FullName *</label> <input type="text"
-														th:value="*{fullname}" class="form-control" required>
+														ng-model="form.fullname" class="form-control" required>
 												</div>
 												<!-- End .col-sm-6 -->
 
 												<div class="col-sm-6">
 													<label>Email address *</label> <input type="email"
-														th:value="*{email}" class="form-control" required>
+														ng-model="form.email" class="form-control" required>
 												</div>
 												<!-- End .col-sm-6 -->
 											</div>
 											<!-- End .row -->
 
 											<label>Address *</label> <input type="text"
-												th:value="*{address}" class="form-control" required>
-											<label>Current password (leave blank to leave
-												unchanged)</label> <input type="password" th:value="*{password}"
-												class="form-control"> <label>New password
-												(leave blank to leave unchanged)</label> <input type="password"
-												class="form-control"> <label>Confirm new
-												password</label> <input type="password" class="form-control mb-2">
+												ng-model="form.address" class="form-control" required>
+											<div class="row">
+												<div class="col-sm-6">
+													<label>Current password</label> <input type="password"
+														readonly ng-model="form.password" class="form-control">
+												</div>
+												<!-- End .col-sm-6 -->
 
-											<button type="submit" class="btn btn-outline-primary-2">
-												<span>SAVE CHANGES</span> <i class="icon-long-arrow-right"></i>
-											</button>
+												<div class="col-sm-6">
+													<label>Confirm Current password *</label> <input
+														type="password" ng-model="confirmPass" required
+														class="form-control">
+												</div>
+												<!-- End .col-sm-6 -->
+											</div>
+											<label>New password * (leave blank to leave
+												unchanged)</label> <input type="password" ng-model="newPass"
+												class="form-control"> <label>Confirm new
+												password *</label> <input type="password" ng-model="confirmNewPass"
+												class="form-control mb-2">
+											<div class="d-flex">
+												<button type="submit"
+													th:attr="ng-click='update(\''+${#authentication.name}+'\')'"
+													class="btn btn-outline-primary-2">
+													<span>SAVE CHANGES</span> <i class="icon-long-arrow-right"></i>
+												</button>
+												<h4 class="text-success ml-5 mt-1">{{messageSuccess}}</h4>
+												<h4 class="text-danger ml-5 mt-1">{{messageFailed}}</h4>
+											</div>
+
 										</form>
 									</div>
 									<!-- .End .tab-pane -->
@@ -149,8 +170,7 @@
 													<td th:if="*{status} == 'Chờ xử lý'"><i
 														class="fa-solid fa-spinner" style="color: #ffcc14;"></i></td>
 													<td><a class="btn btn-outline-primary-2"
-														th:attr="ng-click='showModal(\''+*{id}+'\')'" 
-														 
+														th:attr="ng-click='showModal(\''+*{id}+'\')'"
 														style="min-width: 30px; border-radius: 10%; cursor: pointer; padding: 0.55rem 1rem;">Details</a>
 													</td>
 												</tr>
@@ -174,7 +194,9 @@
 			<!-- Modal Detail order-->
 			<div id="modalDetailOrder" class="modal fade" tabindex="-1"
 				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 70%;">
+				<div
+					class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+					style="max-width: 70%;">
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="exampleModalLabel"
@@ -186,8 +208,8 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<table class="table table-bordered text-center mt-3" id="tableOrderDetail"
-								th:if="user.orders.empty">
+							<table class="table table-bordered text-center mt-3"
+								id="tableOrderDetail" th:if="user.orders.empty">
 								<thead>
 									<tr>
 										<th scope="col">Poster</th>
@@ -200,16 +222,20 @@
 								</thead>
 								<tbody>
 									<tr ng-repeat="item in orderDetail">
-										<td style="width: 100px; padding: 0px;"> <img alt="" src="/assets/images/products/single/masonry/{{item.product.poster}}" style="padding: 2rem;"> </td>
+										<td style="width: 100px; padding: 0px;"><img alt=""
+											src="/assets/images/products/single/masonry/{{item.product.poster}}"
+											style="padding: 2rem;"></td>
 										<td>{{item.product.name}}</td>
 										<td>{{item.product.category.name}}</td>
-										<td>{{item.product.details}}</td>		
+										<td>{{item.product.details}}</td>
 										<td>1</td>
-										<td>{{formatCurrency(item.price)}} VNĐ</td>			
+										<td>{{formatCurrency(item.price)}} VNĐ</td>
 									</tr>
 								</tbody>
 							</table>
-							<h4 class="d-flex flex-row-reverse mb-3" style="margin-right: 2rem;">Total Price: {{formatCurrency(totalPrice)}} VNĐ</h4>
+							<h4 class="d-flex flex-row-reverse mb-3"
+								style="margin-right: 2rem;">Total Price:
+								{{formatCurrency(totalPrice)}} VNĐ</h4>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"

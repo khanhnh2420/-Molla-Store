@@ -1,4 +1,4 @@
-package com.fourTL.controller.site;
+package com.fourTL.controller.site.home;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
