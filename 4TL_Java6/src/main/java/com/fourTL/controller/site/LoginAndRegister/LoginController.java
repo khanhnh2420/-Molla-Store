@@ -59,7 +59,7 @@ public class LoginController {
 			if (!accountsDAO.existsById(oauth2.getPrincipal().getAttribute("email"))) {
 				Accounts account = new Accounts();
 				account.setUsername(oauth2.getPrincipal().getAttribute("email"));
-				account.setPassword(pe.encode(Long.toHexString(System.currentTimeMillis())));
+				account.setPassword(pe.encode("123"));
 				account.setFullname(oauth2.getPrincipal().getAttribute("name"));
 				account.setEmail(oauth2.getPrincipal().getAttribute("email"));
 				account.setAddress("");
