@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chọn hình ảnh và show lên div card với Bootstrap 5</title>
+	<!-- Thêm các thư viện Bootstrap 5 CSS và JavaScript -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" integrity="sha512-Zc2zS9YXfcfNzKU6+8U6KdU6ZwT2Bk+k02D8j7VlGzXJny7mOoJVzw8fWWVvx+M1jwOJNRiOxD8kmfWYIQHT9Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-XtDZjwR+sjrfJ5n5HNgG3KXz5nMgzfMLvHpJ8Wks+IgZw+hGcA65CvIm8WJFgA9fwIPz2Ux+6U8KJoZWdC6Tbg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+	<div class="container">
+		<h1>Chọn hình ảnh và show lên div card với Bootstrap 5</h1>
+		<hr>
+		<!-- Form cho phép chọn hình ảnh -->
+		<form>
+			<div class="mb-3">
+				<label for="imageInput" class="form-label">Chọn hình ảnh</label>
+				<input type="file" class="form-control" id="imageInput">
+			</div>
+		</form>
+		<hr>
+		<!-- Div card hiển thị hình ảnh đã chọn -->
+		<div class="card">
+			<div class="card-body">
+				<img src="#" class="img-fluid" id="selectedImage">
+			</div>
+		</div>
+	</div>
+	<script>
+		// Xử lý sự kiện khi chọn hình ảnh
+		document.getElementById("imageInput").addEventListener("change", function(event) {
+			// Lấy thông tin file đã chọn
+			var selectedFile = event.target.files[0];
+			// Tạo đường dẫn cho hình ảnh đã chọn
+			var selectedFileUrl = URL.createObjectURL(selectedFile);
+			// Hiển thị hình ảnh đã chọn lên div card
+			document.getElementById("selectedImage").src = selectedFileUrl;
+		});
+	</script>
+</body>
+</html>
