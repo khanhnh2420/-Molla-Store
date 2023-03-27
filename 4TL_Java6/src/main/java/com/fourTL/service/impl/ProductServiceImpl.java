@@ -13,11 +13,16 @@ import com.fourTL.service.ProductService;
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
-	ProductsDAO productDAO;
+	ProductsDAO pDAO;
 
 	@Override
 	public List<Products> findAll() {
-		return productDAO.findAll();
+		return pDAO.findAll();
+	}
+
+	@Override
+	public Products findById(Integer id) {
+		return pDAO.findById(id).get();
 	}
 	
 	

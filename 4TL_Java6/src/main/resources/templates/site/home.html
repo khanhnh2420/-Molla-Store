@@ -23,7 +23,7 @@
 						<nav class="side-nav box">
 							<div class="sidenav-title">Browse Categories</div>
 							<!-- End .sidenav-title -->
-							<ul class="menu-vertical sf-arrows" style="max-height: 27em;">
+							<ul class="menu-vertical sf-arrows" style="max-height: 27em;" ng-controller="Category">
 								<li class="megamenu-container"><a href="category.html"
 									class="sf-with-ul">XBOX</a>
 									<div class="megamenu">
@@ -117,7 +117,8 @@
 										</div>
 										<!-- End .row -->
 									</div> <!-- End .megamenu megamenu-sm --></li>
-								<li th:each="c:${cates}"><a href="#" th:text="${c.name}">Nindendo</a>
+								<li ng-repeat="item in categories">
+									<a href="#">{{item.name}}</a>
 								</li>
 							</ul>
 							<!-- End .menu -->
@@ -358,7 +359,7 @@
 									<figure class="product-media">
 										<!-- <span class="product-label label-sale">Sale</span> -->
 										<span class="product-label label-top">Top</span>
-										<a href="product.html"> <img
+										<a th:href="@{|/product/detail/${p.product.id}|}"> <img
 											th:src="@{|/assets/images/products/${p.product.poster}|}"
 											alt="Product image" class="product-image">
 										</a>
@@ -1037,7 +1038,7 @@
 												</h3>
 												<!-- End .product-title -->
 												<div class="product-price"
-											th:text="${#numbers.formatDecimal(p.price, 1, 'COMMA', 2, 'POINT')} + ' VND'"></div>
+													th:text="${#numbers.formatDecimal(p.price, 1, 'COMMA', 2, 'POINT')} + ' VND'"></div>
 												<!-- End .product-price -->
 											</div>
 											<!-- End .product-body -->

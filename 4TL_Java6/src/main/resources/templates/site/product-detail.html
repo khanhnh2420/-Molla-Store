@@ -20,7 +20,7 @@
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="index.html">Home</a></li>
 						<li class="breadcrumb-item"><a href="#">Products</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Masonry
+						<li class="breadcrumb-item active" aria-current="page" th:text="${item.name}">Masonry
 							Sticky Info</li>
 					</ol>
 
@@ -46,10 +46,9 @@
 							<div class="col-md-6">
 								<div class="product-gallery">
 									<figure class="product-main-image">
-										<span class="product-label label-sale">Sale</span>
 										<img id="product-zoom"
-											src="assets/images/products/single/masonry/CSGO.jpg"
-											data-zoom-image="assets/images/products/single/masonry/1-big.jpg"
+											th:src="@{|/assets/images/products/${item.poster}|}"
+											th:data-zoom-image="@{|/assets/images/products/${item.poster}|}"
 											alt="product image">
 
 										<a href="#" id="btn-product-gallery"
@@ -60,25 +59,14 @@
 
 									<div id="product-zoom-gallery"
 										class="product-image-gallery product-gallery-masonry">
-										<a class="product-gallery-item" href="#"
-											data-image="assets/images/products/single/masonry/DOTA-thumb.jpg"
-											data-zoom-image="assets/images/products/single/masonry/DOTA-thumb.jpg">
+										
+										<a class="product-gallery-item" href="#" th:each="i:${itemIMG}"
+											th:data-image="@{|/assets/images/products/${i}|}"
+											th:data-zoom-image="@{|/assets/images/products/${i}|}">
 											<img
-											src="assets/images/products/single/masonry/DOTA-thumb.jpg"
+											th:src="@{|/assets/images/products/${i}|}"
 											alt="product cross">
-										</a> <a class="product-gallery-item gallery-item-wide" href="#"
-											data-image="assets/images/products/single/masonry/DOTA-thumb2.jpg"
-											data-zoom-image="assets/images/products/single/masonry/DOTA-thumb2.jpg">
-											<img
-											src="assets/images/products/single/masonry/DOTA-thumb2.jpg"
-											alt="product with model">
-										</a> <a class="product-gallery-item" href="#"
-											data-image="assets/images/products/single/masonry/DOTA-thumb3.jpg"
-											data-zoom-image="assets/images/products/single/masonry/DOTA-thumb3.jpg">
-											<img
-											src="assets/images/products/single/masonry/DOTA-thumb3.jpg"
-											alt="product side">
-										</a>
+										</a> 
 									</div>
 									<!-- End .product-image-gallery -->
 								</div>
@@ -88,7 +76,7 @@
 
 							<div class="col-md-6">
 								<div class="product-details sticky-content">
-									<h1 class="product-title">ASSASSIN'S CREED VALHALLA</h1>
+									<h1 class="product-title" th:utext="${item.name}">ASSASSIN'S CREED VALHALLA</h1>
 									<!-- End .product-title -->
 
 									<div class="ratings-container">
@@ -102,63 +90,16 @@
 									</div>
 									<!-- End .rating-container -->
 
-									<div class="product-price">
-										<span class="new-price">$60.00</span> <span class="old-price">$80.00</span>
-									</div>
+									<div class="product-price"
+											th:text="${#numbers.formatDecimal(item.price, 1, 'COMMA', 2, 'POINT')} + ' VND'"></div>
 									<!-- End .product-price -->
 
 									<div class="product-content">
-										<p>Become a legendary Viking on a quest for glory. Raid
+										<p th:utext="${item.details}">Become a legendary Viking on a quest for glory. Raid
 											your enemies, grow your settlement, and build your political
 											power.</p>
 									</div>
 									<!-- End .product-content -->
-
-									<div class="details-filter-row details-row-size">
-										<label>Color:</label>
-
-										<div class="product-nav product-nav-thumbs">
-											<a href="#" class="active"> <img
-												src="assets/images/products/single/masonry/Valhalla-thumb-mini.jpg"
-												alt="product desc">
-											</a> <a href="#"> <img
-												src="assets/images/products/single/masonry/Valhalla-thumb2-mini.jpg"
-												alt="product desc">
-											</a> <a href="#"> <img
-												src="assets/images/products/single/masonry/Valhalla-thumb3-mini.jpg"
-												alt="product desc">
-											</a>
-										</div>
-										<!-- End .product-nav -->
-									</div>
-									<!-- End .details-filter-row -->
-
-									<div class="details-filter-row details-row-size">
-										<label for="size">Size:</label>
-										<div class="select-custom">
-											<select name="size" id="size" class="form-control">
-												<option value="#" selected="selected">Select a size</option>
-												<option value="s">Small</option>
-												<option value="m">Medium</option>
-												<option value="l">Large</option>
-												<option value="xl">Extra Large</option>
-											</select>
-										</div>
-										<!-- End .select-custom -->
-
-										<a href="#" class="size-guide"><i class="icon-th-list"></i>size
-											guide</a>
-									</div>
-									<!-- End .details-filter-row -->
-
-									<div class="details-filter-row details-row-size">
-										<label for="qty">Qty:</label>
-										<div class="product-details-quantity">
-											<input type="number" id="qty" class="form-control" value="1"
-												min="1" max="10" step="1" data-decimals="0" required>
-										</div>
-										<!-- End .product-details-quantity -->
-									</div>
 									<!-- End .details-filter-row -->
 
 									<div class="product-details-action">
@@ -176,13 +117,12 @@
 
 									<div class="product-details-footer">
 										<div class="product-cat">
-											<span>Category:</span> <a href="#">Women</a>, <a href="#">Coat</a>,
-											<a href="#">Brown</a>
+											<span>Thể loại:</span> <a href="#" th:utext="${item.category.name}">Women</a>
 										</div>
 										<!-- End .product-cat -->
 
 										<div class="social-icons social-icons-sm">
-											<span class="social-label">Share:</span> <a href="#"
+											<span class="social-label">Chia sẻ:</span> <a href="#"
 												class="social-icon" title="Facebook" target="_blank"><i
 												class="icon-facebook-f"></i></a> <a href="#" class="social-icon"
 												title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
@@ -200,12 +140,12 @@
 											<div class="card-header" id="product-desc-heading">
 												<h2 class="card-title">
 													<a class="collapsed" role="button" data-toggle="collapse"
-														href="#product-accordion-desc" aria-expanded="false"
-														aria-controls="product-accordion-desc"> Description </a>
+														href="#product-accordion-desc" aria-expanded="true"
+														aria-controls="product-accordion-desc"> Mô tả </a>
 												</h2>
 											</div>
 											<!-- End .card-header -->
-											<div id="product-accordion-desc" class="collapse"
+											<div id="product-accordion-desc" class="collapse show"
 												aria-labelledby="product-desc-heading"
 												data-parent="#product-accordion">
 												<div class="card-body">
@@ -242,8 +182,7 @@
 												<h2 class="card-title">
 													<a class="collapsed" role="button" data-toggle="collapse"
 														href="#product-accordion-info" aria-expanded="false"
-														aria-controls="product-accordion-info"> Additional
-														Information </a>
+														aria-controls="product-accordion-info"> Thông tin thêm </a>
 												</h2>
 											</div>
 											<!-- End .card-header -->
@@ -284,13 +223,12 @@
 											<div class="card-header" id="product-shipping-heading">
 												<h2 class="card-title">
 													<a role="button" data-toggle="collapse"
-														href="#product-accordion-shipping" aria-expanded="true"
-														aria-controls="product-accordion-shipping"> Shipping &
-														Returns </a>
+														href="#product-accordion-shipping" aria-expanded="false"
+														aria-controls="product-accordion-shipping"> Vận chuyển </a>
 												</h2>
 											</div>
 											<!-- End .card-header -->
-											<div id="product-accordion-shipping" class="collapse show"
+											<div id="product-accordion-shipping" class="collapse"
 												aria-labelledby="product-shipping-heading"
 												data-parent="#product-accordion">
 												<div class="card-body">
@@ -467,7 +405,7 @@
 							<figure class="product-media">
 								<span class="product-label label-new">New</span>
 								<a href="product.html"> <img
-									src="assets/images/products/product-4.jpg" alt="Product image"
+									src="/assets/images/products/product-4.jpg" alt="Product image"
 									class="product-image">
 								</a>
 
@@ -757,21 +695,21 @@
 	</div>
 	
 	<!-- Plugins JS File -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/jquery.hoverIntent.min.js"></script>
-    <script src="assets/js/jquery.waypoints.min.js"></script>
-    <script src="assets/js/superfish.min.js"></script>
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <script src="assets/js/bootstrap-input-spinner.js"></script>
-    <script src="assets/js/imagesloaded.pkgd.min.js"></script>
-    <script src="assets/js/isotope.pkgd.min.js"></script>
-    <script src="assets/js/jquery.elevateZoom.min.js"></script>
-    <script src="assets/js/bootstrap-input-spinner.js"></script>
-    <script src="assets/js/jquery.magnific-popup.min.js"></script>
-    <script src="assets/js/jquery.sticky-kit.min.js"></script>
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/jquery.hoverIntent.min.js"></script>
+    <script src="/assets/js/jquery.waypoints.min.js"></script>
+    <script src="/assets/js/superfish.min.js"></script>
+    <script src="/assets/js/owl.carousel.min.js"></script>
+    <script src="/assets/js/bootstrap-input-spinner.js"></script>
+    <script src="/assets/js/imagesloaded.pkgd.min.js"></script>
+    <script src="/assets/js/isotope.pkgd.min.js"></script>
+    <script src="/assets/js/jquery.elevateZoom.min.js"></script>
+    <script src="/assets/js/bootstrap-input-spinner.js"></script>
+    <script src="/assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/js/jquery.sticky-kit.min.js"></script>
     <!-- Main JS File -->
-    <script src="assets/js/main.js"></script>
+    <script src="/assets/js/main.js"></script>
 </body>
 
 </html>

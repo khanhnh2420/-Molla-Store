@@ -7,13 +7,11 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fourTL.dao.OrderDetailsDAO;
-import com.fourTL.entities.Categories;
 import com.fourTL.entities.OrderDetails;
 import com.fourTL.entities.Products;
-import com.fourTL.service.CategoryService;
 import com.fourTL.service.ProductService;
 
 @Controller
@@ -25,17 +23,12 @@ public class HomeController {
 	@Autowired
 	OrderDetailsDAO orderDetailsDAO;
 	
-	@Autowired
-	CategoryService catesService;
 	
-	@GetMapping("/")
+	@RequestMapping("/")
 	private String index(Model model) {
 		// List all product
 		List<Products> listProduct = productService.findAll();
 		model.addAttribute("products", getRandom(listProduct,6));
-		// List all category
-		List<Categories> listCategories = catesService.findAll();
-		model.addAttribute("cates", listCategories);
 		// List Top Selling Products
 		List<OrderDetails> listProductTrending = orderDetailsDAO.findTopSellingProducts();
 		model.addAttribute("productsTrending", listProductTrending);
