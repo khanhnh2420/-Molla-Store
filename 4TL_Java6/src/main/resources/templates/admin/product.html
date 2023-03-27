@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layoutadmin/layout.html :: dynamic(~{::title},~{::body})}">
+
+<head>
+<base href="./">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<meta name="description"
+	content="CoreUI - Open Source Bootstrap Admin Template">
+<meta name="author" content="Łukasz Holeczek">
+<meta name="keyword"
+	content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
+<title>PRODUCT MANAGEMENT</title>
+</head>
+
+<body>
+	<div class="body flex-grow-1 px-3">
+		<div class="container-lg">
+			<form>
+				<div class="row">
+					<div class="col-5">
+						<div class="form-group">
+							<label for="productName">Product's Name</label> <input
+								type="text" class="form-control mt-2" id="productName">
+						</div>
+					</div>
+					<div class="col">
+						<div class="form-group">
+							<label for="Price">Price</label> <input type="text"
+								class="form-control mt-2" id="Price">
+						</div>
+					</div>
+					<div class="col">
+						<div class="form-group">
+							<label for="Available">Available</label> <select id="Available"
+								class="form-control mt-2">
+								<option selected>Choose...</option>
+								<option>...</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row mt-4">
+					<div class="col-3">
+						<div class="form-group">
+							<label for="Category">Category</label> <select id="Category"
+								class="form-control mt-2">
+								<option selected>Choose...</option>
+								<option>...</option>
+							</select>
+						</div>
+					</div>
+					<div class="col">
+						<div class="form-group">
+							<label for="Source">Source</label> <input type="text"
+								class="form-control mt-2" id="Source">
+						</div>
+					</div>
+				</div>
+				<div class="mt-4">
+					<label for="details" class="form-label">Product Description</label>
+					<textarea class="form-control" id="details" rows="3"></textarea>
+				</div>
+				<div class="row mt-4">
+					<div class="col-3">
+						<div class="mb-3">
+							<label for="imageInput" class="form-label">Chọn hình ảnh</label>
+							<input type="file" class="form-control" id="imageInput">
+						</div>
+						<!-- Div card hiển thị hình ảnh đã chọn -->
+						<div class="card">
+							<div class="card-body">
+								<img src="#" class="img-fluid" id="selectedImage">
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<!--thumbnails-->
+						<div class="mb-3">
+							<label for="imageThumbnails" class="form-label">Choose 3
+								Thumbnails</label> <input type="file" class="form-control"
+								id="imageThumbnails" multiple>
+						</div>
+						<div class="card">
+							<div class="card-body">
+								<div class="row" id="selectedThumbnails"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row row-cols-6 d-flex justify-content-between mt-4">
+					<button type="submit" class="btn btn-primary mt-4">
+						<i class="fa-solid fa-plus"></i> Create
+					</button>
+					<button type="submit" class="btn btn-success mt-4">
+						<i class="fa-solid fa-pen-nib"></i> Update
+					</button>
+					<button type="submit" class="btn btn-danger mt-4">
+						<i class="fa-solid fa-trash"></i> Delete
+					</button>
+					<button type="submit" class="btn btn-warning mt-4">
+						<i class="fa-solid fa-broom"></i> Reset
+					</button>
+					<button type="submit" class="btn btn-info mt-4">
+						<i class="fa-solid fa-magnifying-glass"></i> Preview
+					</button>
+				</div>
+			</form>
+			<br>
+			<hr>
+			<br>
+			<div class="row flex-row-reverse">
+				<div class="input-group w-25">
+					<input type="search" class="form-control rounded"
+						placeholder="Search by product's name..." aria-label="Search"
+						aria-describedby="search-addon" />
+					<button type="button" class="btn btn-outline-primary">search</button>
+				</div>
+			</div>
+			<table class="table table-bordered text-center"
+				th:if="user.orders.empty">
+				<caption
+					style="caption-side: top; text-align: center; font-size: 3rem; font-weight: 800;">LIST
+					PRODUCTS</caption>
+				<thead>
+					<tr>
+						<th scope="col">Product's Name</th>
+						<th scope="col">Price</th>
+						<th scope="col">Poster</th>
+						<th scope="col">Thumbnails</th>
+						<th scope="col">Source</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Assassin Creed Valhalla</td>
+						<td>200.000</td>
+						<td>Valhalla.jpg</td>
+						<td>Valhalla-thumb.jpg-*-Valhalla-thumb2.jpg-*-Valhalla-thumb3.jpg</td>
+						<td
+							style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+							https://www.softonic.vn/download-launch?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkb3dubG9hZFR5cGUiOiJyaXNlSW5zdGFsbGVyIiwiZG93bmxvYWRVcmwiOiJodHRwczovL2QxbTE1MTFpNzR6YmR1LmNsb3VkZnJvbnQubmV0L3Zlci92bi92Ny40ODUuMzAuNDAuMzIiLCJhcHBJZCI6ImUyNjhlZDM3LWJiMjItNDM3NS1hY2YxLWQ0ZjJiZWQyNjMwZCIsInBsYXRmb3JtSWQiOiJ3aW5kb3dzIiwiaWF0IjoxNjc5ODQ1MjgzLCJleHAiOjE2Nzk4NDg4ODN9.w8czKgm_8ubE_39hvdqLdOgsK-tLhyPTxputiOo7tUc
+						</td>
+						<td><a class="btn btn btn-success">Edit</a> <a
+							class="btn btn btn-danger">Delete</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<nav aria-label="...">
+				<ul class="pagination justify-content-end">
+					<li class="page-item disabled"><a class="page-link">Previous</a>
+					</li>
+					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item active" aria-current="page"><a
+						class="page-link" href="#">2 <span class="visually-hidden">(current)</span></a>
+					</li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<script>
+		// Xử lý sự kiện khi chọn hình ảnh
+		document
+				.getElementById("imageInput")
+				.addEventListener(
+						"change",
+						function(event) {
+							// Lấy thông tin file đã chọn
+							var selectedFile = event.target.files[0];
+							// Tạo đường dẫn cho hình ảnh đã chọn
+							var selectedFileUrl = URL
+									.createObjectURL(selectedFile);
+							// Hiển thị hình ảnh đã chọn lên div card
+							document.getElementById("selectedImage").src = selectedFileUrl;
+						});
+
+		document.getElementById("imageThumbnails").addEventListener(
+				"change",
+				function(event) {
+					let files = event.target.files;
+					let row = document.createElement("div");
+					row.classList.add("row");
+
+					for (let i = 0; i < files.length; i++) {
+						let file = files[i];
+						let url = URL.createObjectURL(file);
+						let img = document.createElement("img");
+						img.src = url;
+						img.classList.add("img-thumbnail");
+						let div = document.createElement("div");
+						div.classList.add("col-md-4", "mb-3");
+						div.appendChild(img);
+						row.appendChild(div);
+
+						// Thêm một hàng mới sau mỗi 3 hình ảnh
+						if ((i + 1) % 3 == 0) {
+							document.getElementById("selectedThumbnails")
+									.appendChild(row);
+							row = document.createElement("div");
+							row.classList.add("row");
+						}
+					}
+
+					// Nếu số hình ảnh không chia hết cho 3, thêm hàng cuối cùng
+					if (files.length % 3 != 0) {
+						document.getElementById("selectedThumbnails")
+								.appendChild(row);
+					}
+				});
+	</script>
+
+</body>
+
+</html>
