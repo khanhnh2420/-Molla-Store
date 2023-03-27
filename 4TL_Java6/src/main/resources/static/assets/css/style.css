@@ -19945,3 +19945,15 @@ button:focus {
 #tableOrderDetail th, #tableOrderDetail td {
 	padding: 1.4rem;
 }
+
+
+.box>ul {
+    overflow: auto;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+}
+
+.box>ul::-webkit-scrollbar { 
+  width: 0 !important;
+  display: none; 
+}
