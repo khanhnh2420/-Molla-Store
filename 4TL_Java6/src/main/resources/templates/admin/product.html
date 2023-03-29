@@ -69,7 +69,7 @@
 					<div class="col-3">
 						<div class="mb-3">
 							<label for="imageInput" class="form-label">Choose Poster</label>
-							<input type="file" class="form-control" id="imageInput" required>
+							<input type="file" class="form-control" id="imageInput">
 						</div>
 						<!-- Div card hiển thị hình ảnh đã chọn -->
 						<div class="card">
@@ -82,7 +82,7 @@
 						<!--thumbnails-->
 						<div class="mb-3">
 							<label for="imageThumbnails" class="form-label">Choose 3
-								Thumbnails</label> <input type="file" class="form-control" required
+								Thumbnails</label> <input type="file" class="form-control" 
 								id="imageThumbnails" accept="image/*" multiple>
 						</div>
 						<div class="card">
@@ -92,16 +92,16 @@
 						</div>
 					</div>
 				</div>
-				<h4 class="text-center text-success">{{messageSuccess}}</h4>
-				<h4 class="text-center text-danger">{{messageFailed}}</h4>
+				<h4 class="text-center text-success mt-3">{{messageSuccess}}</h4>
+				<h4 class="text-center text-danger mt-3">{{messageFailed}}</h4>
 				<div class="row-cols-6 d-flex justify-content-between mt-4">
 					<button type="submit" class="btn btn-primary mt-4" ng-click="create_btn()" ng-disabled="productForm.$invalid">
 						<i class="fa-solid fa-plus"></i> Create
 					</button>
-					<button type="submit" class="btn btn-success mt-4" ng-click="update()" ng-disabled="productForm.$invalid">
+					<button type="submit" class="btn btn-success mt-4" ng-click="update_btn()" ng-disabled="productForm.$invalid">
 						<i class="fa-solid fa-pen-nib"></i> Update
 					</button>
-					<button type="submit" class="btn btn-danger mt-4">
+					<button type="submit" class="btn btn-danger mt-4" ng-click="delete(form.id)">
 						<i class="fa-solid fa-trash"></i> Delete
 					</button>
 					<button type="button" class="btn btn-warning mt-4"
@@ -159,8 +159,8 @@
 				<ul class="pagination justify-content-end">
 					<li class="page-item" ng-click="prevPage()"
 						style="cursor: pointer;"><a class="page-link">Previous</a></li>
-					<li class="page-item"
-						ng-repeat="pageNum in [].constructor(pageTotal) track by $index"
+					<li class="page-item pageNumber"
+						ng-repeat="pageNum in [].constructor(pageTotal) track by $index" id="{{$index + 1}}"
 						style="cursor: pointer;"><a class="page-link"
 						ng-click="changePage($index + 1)">{{$index + 1}}</a></li>
 
