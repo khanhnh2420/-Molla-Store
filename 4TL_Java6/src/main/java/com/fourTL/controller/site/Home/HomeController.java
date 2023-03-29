@@ -26,7 +26,7 @@ public class HomeController {
 	
 	@RequestMapping("/")
 	private String index(Model model) {
-//		 List all product
+		// List all product
 		List<Products> listProduct = productService.findAll();
 		model.addAttribute("products", getRandom(listProduct,6));
 		// List Top Selling Products
