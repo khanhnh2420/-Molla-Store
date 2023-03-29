@@ -415,14 +415,13 @@ body {
 }
 
 .product-action {
-    background-color: transparent
+    
 }
 
 .btn-product {
     padding-top: 1.2rem;
     padding-bottom: 1.2rem;
     color: #333;
-    background-color: rgba(252, 184, 66, 0.95);
     text-transform: uppercase
 }
 
@@ -444,7 +443,7 @@ body {
 
 .btn-product:hover span,
 .btn-product:focus span {
-    color: #fcb842;
+    
     box-shadow: none
 }
 

@@ -58,8 +58,12 @@ public class AuthConfig {
 		http.logout().logoutUrl("/logout").logoutSuccessUrl("/login/form").permitAll();
 
 		// OAuth2 - Đăng nhập từ mạng xã hội
-		http.oauth2Login().loginPage("/login/form").defaultSuccessUrl("/oauth2/login/success", true)
-				.failureUrl("/login/error").authorizationEndpoint().baseUri("/oauth2/authorization");
+		http.oauth2Login()
+			.loginPage("/login/form")
+			.defaultSuccessUrl("/oauth2/login/success", true)
+			.failureUrl("/login/error")
+			.authorizationEndpoint()
+			.baseUri("/oauth2/authorization");
 		return http.build();
 	}
 }
