@@ -54,9 +54,6 @@ public class ProductRestController {
 	
 	@PostMapping("")
 	public ResponseEntity<Products> post(@RequestBody Products product) {
-		if(productsDAO.existsById(product.getId())) {
-			return ResponseEntity.badRequest().build();
-		}
 		productsDAO.save(product);
 		return ResponseEntity.ok(product);
 	}

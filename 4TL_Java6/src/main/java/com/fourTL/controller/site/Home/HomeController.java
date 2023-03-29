@@ -10,15 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fourTL.dao.OrderDetailsDAO;
-import com.fourTL.entities.OrderDetails;
-import com.fourTL.entities.Products;
-import com.fourTL.service.ProductService;
 
 @Controller
 public class HomeController {
 
-	@Autowired
-	ProductService productService;
+//	@Autowired
+//	ProductService productService;
 	
 	@Autowired
 	OrderDetailsDAO orderDetailsDAO;
@@ -27,11 +24,11 @@ public class HomeController {
 	@RequestMapping("/")
 	private String index(Model model) {
 		// List all product
-		List<Products> listProduct = productService.findAll();
-		model.addAttribute("products", getRandom(listProduct,6));
-		// List Top Selling Products
-		List<OrderDetails> listProductTrending = orderDetailsDAO.findTopSellingProducts();
-		model.addAttribute("productsTrending", listProductTrending);
+//		List<Products> listProduct = productService.findAll();
+//		model.addAttribute("products", getRandom(listProduct,6));
+//		// List Top Selling Products
+//		List<OrderDetails> listProductTrending = orderDetailsDAO.findTopSellingProducts();
+//		model.addAttribute("productsTrending", listProductTrending);
 		
 		return "site/home";
 	}
