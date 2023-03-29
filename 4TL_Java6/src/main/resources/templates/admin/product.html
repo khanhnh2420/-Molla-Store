@@ -3,20 +3,9 @@
 	th:replace="~{/layoutadmin/layout.html :: dynamic(~{::title},~{::body})}">
 
 <head>
-<base href="./">
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-<meta name="description"
-	content="CoreUI - Open Source Bootstrap Admin Template">
-<meta name="author" content="Łukasz Holeczek">
-<meta name="keyword"
-	content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
 <title>PRODUCT MANAGEMENT</title>
 </head>
-
-<body>
+<body ng-controller="productMana">
 	<div class="body flex-grow-1 px-3">
 		<div class="container-lg">
 			<form>
@@ -24,45 +13,57 @@
 					<div class="col-5">
 						<div class="form-group">
 							<label for="productName">Product's Name</label> <input
-								type="text" class="form-control mt-2" id="productName">
+								ng-model="form.name" type="text" class="form-control mt-2"
+								id="productName">
 						</div>
 					</div>
 					<div class="col">
 						<div class="form-group">
 							<label for="Price">Price</label> <input type="text"
-								class="form-control mt-2" id="Price">
+								ng-model="form.price" class="form-control mt-2" id="Price">
 						</div>
 					</div>
 					<div class="col">
 						<div class="form-group">
-							<label for="Available">Available</label> <select id="Available"
-								class="form-control mt-2">
-								<option selected>Choose...</option>
-								<option>...</option>
-							</select>
+							<label for="Available">Available</label>
+							<div class="row mt-3">
+								<div class="col-auto">
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" ng-model="form.available"
+											ng-value="true" type="radio" name=available id="conhang">
+										<label class="form-check-label" for="conhang">CÒN HÀNG</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" ng-model="form.available"
+											ng-value="false" type="radio" name="available" id="hethang">
+										<label class="form-check-label" for="hethang">HẾT HÀNG</label>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row mt-4">
 					<div class="col-3">
 						<div class="form-group">
-							<label for="Category">Category</label> <select id="Category"
-								class="form-control mt-2">
-								<option selected>Choose...</option>
-								<option>...</option>
+							<label for="Category">Category</label> <select
+								class="form-select mt-2" ng-model="form.category.id"
+								aria-label="Default select example">
+								<option ng-repeat="cate in categories" ng-value="cate.id">{{cate.name}}</option>
 							</select>
 						</div>
 					</div>
 					<div class="col">
 						<div class="form-group">
 							<label for="Source">Source</label> <input type="text"
-								class="form-control mt-2" id="Source">
+								ng-model="form.source" class="form-control mt-2" id="Source">
 						</div>
 					</div>
 				</div>
 				<div class="mt-4">
 					<label for="details" class="form-label">Product Description</label>
-					<textarea class="form-control" id="details" rows="3"></textarea>
+					<textarea class="form-control" id="details" rows="5"
+						ng-model="form.details"></textarea>
 				</div>
 				<div class="row mt-4">
 					<div class="col-3">
@@ -91,7 +92,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row row-cols-6 d-flex justify-content-between mt-4">
+				<div class="row-cols-6 d-flex justify-content-between mt-4">
 					<button type="submit" class="btn btn-primary mt-4">
 						<i class="fa-solid fa-plus"></i> Create
 					</button>
@@ -101,7 +102,8 @@
 					<button type="submit" class="btn btn-danger mt-4">
 						<i class="fa-solid fa-trash"></i> Delete
 					</button>
-					<button type="submit" class="btn btn-warning mt-4">
+					<button type="submit" class="btn btn-warning mt-4"
+						ng-click="reset()">
 						<i class="fa-solid fa-broom"></i> Reset
 					</button>
 					<button type="submit" class="btn btn-info mt-4">
@@ -136,30 +138,32 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>Assassin Creed Valhalla</td>
-						<td>200.000</td>
-						<td>Valhalla.jpg</td>
-						<td>Valhalla-thumb.jpg-*-Valhalla-thumb2.jpg-*-Valhalla-thumb3.jpg</td>
+					<tr ng-repeat="product in items"
+						ng-if="$index >= minQuantityProduct && $index < maxQuantityProduct">
+						<td>{{product.name}}</td>
+						<td>{{formatCurrency(product.price)}}</td>
+						<td>{{product.poster}}</td>
+						<td>{{product.thumbnail}}</td>
 						<td
 							style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-							https://www.softonic.vn/download-launch?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkb3dubG9hZFR5cGUiOiJyaXNlSW5zdGFsbGVyIiwiZG93bmxvYWRVcmwiOiJodHRwczovL2QxbTE1MTFpNzR6YmR1LmNsb3VkZnJvbnQubmV0L3Zlci92bi92Ny40ODUuMzAuNDAuMzIiLCJhcHBJZCI6ImUyNjhlZDM3LWJiMjItNDM3NS1hY2YxLWQ0ZjJiZWQyNjMwZCIsInBsYXRmb3JtSWQiOiJ3aW5kb3dzIiwiaWF0IjoxNjc5ODQ1MjgzLCJleHAiOjE2Nzk4NDg4ODN9.w8czKgm_8ubE_39hvdqLdOgsK-tLhyPTxputiOo7tUc
-						</td>
-						<td><a class="btn btn btn-success">Edit</a> <a
-							class="btn btn btn-danger">Delete</a></td>
+							{{product.source}}</td>
+						<td><a class="btn btn btn-success"
+							ng-click="edit(product.id)">Edit</a> <a
+							class="btn btn btn-danger" ng-click="delete(product.id)">Delete</a></td>
 					</tr>
 				</tbody>
 			</table>
 			<nav aria-label="...">
 				<ul class="pagination justify-content-end">
-					<li class="page-item disabled"><a class="page-link">Previous</a>
-					</li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item active" aria-current="page"><a
-						class="page-link" href="#">2 <span class="visually-hidden">(current)</span></a>
-					</li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+					<li class="page-item" ng-click="prevPage()"
+						style="cursor: pointer;"><a class="page-link">Previous</a></li>
+					<li class="page-item"
+						ng-repeat="pageNum in [].constructor(pageTotal) track by $index"
+						style="cursor: pointer;"><a class="page-link"
+						ng-click="changePage($index + 1)">{{$index + 1}}</a></li>
+
+					<li class="page-item" ng-click="nextPage()"
+						style="cursor: pointer;"><a class="page-link">Next</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -214,7 +218,7 @@
 					}
 				});
 	</script>
-
+	<script type="text/javascript" src="/admin/js/api/productMana.js"></script>
 </body>
 
 </html>

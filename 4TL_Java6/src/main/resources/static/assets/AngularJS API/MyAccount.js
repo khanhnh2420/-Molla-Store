@@ -1,5 +1,5 @@
 // Angular js
-app.controller("MyAccount", function($scope, $http, $location) {
+app.controller("MyAccount", function($scope, $http) {
 	$scope.form = {};
 	$scope.orderDetail = [];
 	$scope.totalPrice = 0;
