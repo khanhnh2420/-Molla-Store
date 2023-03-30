@@ -29,6 +29,7 @@ public class Products  implements Serializable{
 	String poster;
 	String thumbnail;
 	String source;
+	String link;
 	String details;
 	Long price;
 	@Temporal(TemporalType.DATE)
