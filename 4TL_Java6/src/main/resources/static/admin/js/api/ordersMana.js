@@ -37,13 +37,19 @@ app.controller("ordersMana", function($scope, $http) {
 	// change page
 	$scope.changePage = function(index) {
 		if (index == 1) {
-			$scope.minQuantityProduct = 0;
+			$scope.minQuantityOrders = 0;
 
 		} else {
-			$scope.minQuantityProduct = 9 * (index - 1);
+			$scope.minQuantityOrders = 9 * (index - 1);
 		}
-		$scope.maxQuantityProduct = 9 * index;
+		$scope.maxQuantityOrders = 9 * index;
 		$scope.currentPage = index;
+
+		var arrPageNum = document.getElementsByClassName("pageNumber");
+		for (var i = 0; i < arrPageNum.length; i++) {
+			arrPageNum[i].classList.remove("active");
+		}
+		arrPageNum[index - 1].classList.add("active");
 	}
 
 	// nextPage and PreviousPage
