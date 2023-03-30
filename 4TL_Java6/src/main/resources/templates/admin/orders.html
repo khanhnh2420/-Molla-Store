@@ -1,18 +1,78 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{/layoutadmin/layout.html :: dynamic(~{::title},~{::body})}">
-  <head>
-    <base href="./">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
-    <meta name="author" content="Łukasz Holeczek">
-    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>INVOICE MANAGEMENT</title>
-  </head>
-  <body>
-    
+<head>
+<base href="./">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<meta name="description"
+	content="CoreUI - Open Source Bootstrap Admin Template">
+<meta name="author" content="Łukasz Holeczek">
+<meta name="keyword"
+	content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
+<title>INVOICE MANAGEMENT</title>
+</head>
+<body ng-controller="ordersMana">
+	<div class="body flex-grow-1 px-3">
+		<div class="container-lg">
+			<div class="row flex-row-reverse">
+				<div class="input-group w-25">
+					<input type="search" class="form-control rounded"
+						placeholder="Search by bill..." aria-label="Search"
+						aria-describedby="search-addon" />
+					<button type="button" class="btn btn-outline-primary">search</button>
+				</div>
+			</div>
+			<table class="table table-bordered text-center"
+				th:if="user.orders.empty">
+				<caption
+					style="caption-side: top; text-align: center; font-size: 3rem; font-weight: 800;">LIST
+					BILL</caption>
+				<thead>
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col">CreateDate</th>
+						<th scope="col">Address</th>
+						<th scope="col">Email</th>
+						<th scope="col">Phone</th>
+						<th scope="col">Status</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody id="order-form">
+					<tr ng-repeat="orders in items"
+						ng-if="$index >= minQuantityOrders && $index < maxQuantityOrders">
+						<td>{{orders.username}}</td>
+						<td>{{orders.createDate}}</td>
+						<td>{{orders.address}}</td>
+						<td>{{orders.email}}</td>
+						<td>{{orders.phone}}</td>
+						<td>{{orders.status}}</td>
+						<td><a class="btn btn btn-danger"
+							ng-click="delete(orders.id)">Delete</a> <a
+							class="btn btn btn-info" ng-click="delete(orders.id)">SendMail</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<nav aria-label="...">
+				<ul class="pagination justify-content-end">
+					<li class="page-item" ng-click="prevPage()"
+						style="cursor: pointer;"><a class="page-link">Previous</a></li>
+					<li class="page-item"
+						ng-repeat="pageNum in [].constructor(pageTotal) track by $index"
+						style="cursor: pointer;"><a class="page-link"
+						ng-click="changePage($index + 1)">{{$index + 1}}</a></li>
 
-  </body>
+					<li class="page-item" ng-click="nextPage()"
+						style="cursor: pointer;"><a class="page-link">Next</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<script type="text/javascript" src="/admin/js/api/ordersMana.js"></script>
+
+
+</body>
 </html>
