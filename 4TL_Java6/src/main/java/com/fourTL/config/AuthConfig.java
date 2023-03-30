@@ -35,7 +35,7 @@ public class AuthConfig {
 					.permitAll();
 
 			// Phân quyền trang admin
-//			auth.requestMatchers("/admin/**").hasAnyRole("DIRE", "STAF");
+			auth.requestMatchers("/admin/**").hasAnyRole("DIRE", "STAF");
 
 			// Phân quyền trang người dùng
 			auth.requestMatchers("/account", "/checkout").hasAnyRole("CUST");

@@ -118,10 +118,10 @@
 			<br>
 			<div class="row flex-row-reverse">
 				<div class="input-group w-25">
-					<input type="search" class="form-control rounded"
+					<input type="search" class="form-control rounded" ng-model="searchInput" id="search"
 						placeholder="Search by product's name..." aria-label="Search"
 						aria-describedby="search-addon" />
-					<button type="button" class="btn btn-outline-primary">search</button>
+					<button type="button" class="btn btn-outline-primary" ng-click="search()">search</button>
 				</div>
 			</div>
 			<table class="table table-bordered text-center"

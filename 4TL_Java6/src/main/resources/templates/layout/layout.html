@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="dynamic(title, view)">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="dynamic(title, view)" ng-app="app" ng-controller="Cart-ctrl">
 
 <head>
 	<meta charset="UTF-8">
@@ -42,11 +42,12 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- 	AngularJS ng-app and Host -->
     <script type="text/javascript" src="/assets/AngularJS API/app.js"></script>
+    <script type="text/javascript" src="/assets/AngularJS API/Cart.js"></script>
 	<!--    BCryptPasswordEncoder  -->
     <script src="https://cdn.jsdelivr.net/npm/bcryptjs/dist/bcrypt.min.js"></script>
 </head>
 
-<body ng-app="app" ng-controller="Cart-ctrl">
+<body >
 	<div class="page-wrapper">
 		<!-- Header  -->
 		<div th:insert="~{/layout/header.html :: navbar}"></div>

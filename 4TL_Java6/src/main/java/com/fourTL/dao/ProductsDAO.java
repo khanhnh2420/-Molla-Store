@@ -13,6 +13,8 @@ import com.fourTL.entities.Products;
 public interface ProductsDAO extends JpaRepository<Products, Integer> {
 
 	@Query("SELECT p FROM Products p WHERE p.category.id = :categoryId")
-    List<Products> findByCategoryId(@Param("categoryId") String categoryId);
-	
+	List<Products> findByCategoryId(@Param("categoryId") String categoryId);
+
+	//Tìm sản phẩm theo search
+	List<Products> findByNameContaining(String search);
 }
