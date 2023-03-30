@@ -19,7 +19,7 @@
 			<nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
 				<div class="container d-flex align-items-center">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+						<li class="breadcrumb-item"><a th:href="@{|/|}">Home</a></li>
 						<li class="breadcrumb-item"><a href="#">Products</a></li>
 						<li class="breadcrumb-item active" aria-current="page" th:text="${item.name}">Masonry
 							Sticky Info</li>
@@ -87,7 +87,7 @@
 									<!-- End .rating-container -->
 
 									<div class="product-price"
-										th:text="${#numbers.formatDecimal(item.price, 1, 'COMMA', 2, 'POINT')} + ' VND'">
+										th:text="${#numbers.formatDecimal(item.price, 1, 'COMMA', 0, 'POINT')} + ' VND'">
 									</div>
 									<!-- End .product-price -->
 
@@ -101,8 +101,7 @@
 									<!-- End .details-filter-row -->
 
 									<div class="product-details-action">
-										<a href="#" class="btn-product btn-cart"><span>add
-												to cart</span></a>
+										<a th:data-product-id="${item.id}" ng-click="addCart($event)" class="btn-product btn-cart"><span>add to cart</span></a>
 
 										<div class="details-action-wrapper">
 											<a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add
@@ -412,7 +411,7 @@
 								<!-- End .product-action-vertical -->
 
 								<div class="product-action">
-									<a href="#" class="btn-product btn-cart"><span>add
+									<a th:data-product-id="${p.id}" ng-click="addCart($event)" class="btn-product btn-cart"><span>add
 											to cart</span></a>
 								</div>
 								<!-- End .product-action -->

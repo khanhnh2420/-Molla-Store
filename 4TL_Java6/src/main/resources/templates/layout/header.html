@@ -139,15 +139,16 @@
 															<a href="product.html">{{item.product.name}}</a>
 														</h4>
 
-														<span class="cart-product-info"> <span
-																class="cart-product-qty">{{item.quantity}}</span> x
-															{{item.product.price}} VND
+														<span class="cart-product-info">
+															<span class="cart-product-qty">{{ item.quantity }}</span> x
+															{{ item.product.price | number:0 }} VND
 														</span>
+														  
 													</div>
 													<!-- End .product-cart-details -->
 
 													<figure class="product-image-container">
-														<a href="product.html" class="product-image"> <img
+														<a href="/product/detail/{{item.product.id}}" class="product-image"> <img
 																src="/assets/images/products/{{item.product.poster}}"
 																alt="product">
 														</a>
@@ -163,12 +164,12 @@
 									<!-- End .cart-product -->
 
 									<div class="dropdown-cart-total">
-										<span>Total</span> <span class="cart-total-price">{{cartTotal}}</span>
+										<span>Total</span> <span class="cart-total-price">{{cartTotal | number:0}} VND</span>
 									</div>
 									<!-- End .dropdown-cart-total -->
 
 									<div class="dropdown-cart-action">
-										<a href="cart.html" class="btn btn-primary">View Cart</a> <a href="/checkout"
+										<a th:href="@{|/viewCart|}" class="btn btn-primary">View Cart</a> <a href="/checkout"
 											class="btn btn-outline-primary-2"><span>Checkout</span><i
 												class="icon-long-arrow-right"></i></a>
 									</div>
