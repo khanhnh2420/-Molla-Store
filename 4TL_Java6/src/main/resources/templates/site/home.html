@@ -12,7 +12,7 @@
 <meta name="author" content="p-themes">
 </head>
 <body>
-	<div class="wrap-container">
+	<div class="wrap-container" >
 		<div class="image-bg-body"></div>
 		<main class="main">
 			<div class="mb-2"></div>
@@ -371,8 +371,7 @@
 										<!-- End .product-action-vertical -->
 
 										<div class="product-action">
-											<a href="#" class="btn-product btn-cart"><span>add
-													to cart</span></a>
+											<a class="btn-product btn-cart" th:data-product-id="${p.product.id}" ng-click="addCart($event)"><span>add to cart</span></a>
 										</div>
 										<!-- End .product-action -->
 									</figure>
@@ -1555,6 +1554,7 @@
 	<!-- Main JS File -->
 	<script src="assets/js/main.js"></script>
 	<script src="assets/js/demos/demo-19.js"></script>
+	<script src="assets/AngularJS API/Cart.js"></script>
 </body>
 
 </html>

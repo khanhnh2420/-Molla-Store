@@ -20,6 +20,8 @@ app.controller("productMana", function($scope, $http) {
 			}, available: true
 		};
 		document.getElementById("selectedThumbnails").innerHTML = "";
+		document.getElementById("selectedImage").setAttribute('src', '');
+;
 		$scope.filePoster = null;
 		$scope.fileThumbnails = null;
 		$scope.messageSuccess = "";
@@ -32,6 +34,7 @@ app.controller("productMana", function($scope, $http) {
 		$http.get(url).then(resp => {
 			$scope.items = resp.data;
 			$scope.pageTotal = Math.ceil($scope.items.length / 9);
+			document.getElementsByClassName("pageNumber")[0].classList.add("active");
 		}).catch(error => {
 			console.log("Error", error);
 		});
@@ -45,10 +48,13 @@ app.controller("productMana", function($scope, $http) {
 		});
 	}
 	$scope.edit = function(id) {
+		$scope.messageSuccess = "";
+		$scope.messageFailed = "";
 		var url = `${host}/admin/api/product/${id}`;
 		$http.get(url).then(resp => {
 			$scope.form = resp.data;
 			$scope.thumbnail($scope.form.thumbnail.split('-*-'));
+			$scope.key = id;
 		}).catch(error => {
 			console.log("Error", error);
 		});
@@ -91,7 +97,7 @@ app.controller("productMana", function($scope, $http) {
 			$scope.reset();
 			$scope.messageSuccess = "Thêm sản phẩm thành công!";
 			$scope.pageTotal = Math.ceil($scope.items.length / 9);
-			
+
 		}).catch(error => {
 			console.log("Error", error);
 			$scope.messageFailed = "Thêm sản phẩm thất bại!";
@@ -106,7 +112,7 @@ app.controller("productMana", function($scope, $http) {
 				$scope.createImageInFolder($scope.fileThumbnails)
 					.then(function(dataThumbnail) {
 						var item = angular.copy($scope.form);
-						item.thumbnail = dataThumbnail.map(x=>x).join("-*-");
+						item.thumbnail = dataThumbnail.map(x => x).join("-*-");
 						item.poster = dataPoster[0] + "";
 						$scope.create(item);
 					})
@@ -115,10 +121,12 @@ app.controller("productMana", function($scope, $http) {
 						for (let i = 0; i < dataPoster.length; i++) {
 							$scope.deleteImageInFolder(dataPoster[i]);
 						}
+						$scope.messageFailed = "Vui lòng chọn 3 tấm hình thumbnails!";
 					});
 			})
 			.catch(function(error) {
 				console.log(error);
+				$scope.messageFailed = "Vui lòng chọn poster!";
 			});
 	}
 
@@ -153,26 +161,85 @@ app.controller("productMana", function($scope, $http) {
 		});
 	}
 
-	$scope.update = function() {
+	$scope.update_btn = function() {
+		$scope.messageSuccess = "";
+		$scope.messageFailed = "";
 		var item = angular.copy($scope.form);
-		var url = `${host}/students/${$scope.form.email}`;
+
+		$scope.createImageInFolder($scope.filePoster)
+			.then(function(dataPoster) {
+				item.poster = dataPoster[0] + "";
+				$scope.createImageInFolder($scope.fileThumbnails)
+					.then(function(dataThumbnail) {
+						item.thumbnail = dataThumbnail.map(x => x).join("-*-");
+						$scope.update(item);
+					})
+					.catch(function(error) {
+						console.log(error);
+						for (let i = 0; i < $scope.items.length; i++) {
+							if ($scope.items[i].id == $scope.key) {
+								item.thumbnail == $scope.items[i].thumbnail;
+							}
+						}
+						$scope.update(item);
+					});
+			})
+			.catch(function(error) {
+				console.log(error);
+				for (let i = 0; i < $scope.items.length; i++) {
+					if ($scope.items[i].id == $scope.key) {
+						item.poster == $scope.items[i].poster;
+					}
+				}
+				$scope.createImageInFolder($scope.fileThumbnails)
+					.then(function(dataThumbnail) {
+						item.thumbnail = dataThumbnail.map(x => x).join("-*-");
+						$scope.update(item);
+					})
+					.catch(function(error) {
+						console.log(error);
+						for (let i = 0; i < $scope.items.length; i++) {
+							if ($scope.items[i].id == $scope.key) {
+								item.thumbnail == $scope.items[i].thumbnail;
+							}
+						}
+						$scope.update(item);
+					});
+			});
+	}
+
+	$scope.update = function(item) {
+		var url = `${host}/admin/api/product/${$scope.key}`;
 		$http.put(url, item).then(resp => {
-			var index = $scope.items.findIndex(item => item.email == $scope.form.email);
+			var index = $scope.items.findIndex(item => item.id == $scope.key);
 			$scope.items[index] = resp.data;
+			$scope.messageSuccess = "Cập nhật thành công!";
+			$scope.load_all();
 		}).catch(error => {
 			console.log("Error", error);
+			$scope.messageFailed = "Cập nhật thất bại!";
 		});
 	}
 
-	$scope.delete = function(email) {
-		var url = `${host}/students/${email}`;
+	$scope.delete = function(id) {
+		$scope.messageSuccess = "";
+		$scope.messageFailed = "";
+		var url = `${host}/admin/api/product/${id}`;
 		$http.delete(url).then(resp => {
-			var index = $scope.items.findIndex(item => item.email == email);
-			$scope.items.splice(index, 1);
+			var index = $scope.items.findIndex(item => item.id == id);
+			$scope.items[index].poster;
+			$scope.deleteImageInFolder($scope.items[index].poster);
+			$scope.arrThumbnails = $scope.form.thumbnail.split('-*-');
+			for (let i = 0; i < $scope.arrThumbnails.length; i++) {
+				$scope.deleteImageInFolder($scope.arrThumbnails[i]);
+			}
+			$scope.load_all();
 			$scope.reset();
 			$scope.pageTotal = Math.ceil($scope.items.length / 9);
+			$scope.messageSuccess = "Xóa thành công!";
 		}).catch(error => {
 			console.log("Error", error);
+			$scope.messageFailed = "Xóa thất bại!";
 		});
 	}
 	// Thực hiện tải toàn bộ product
@@ -200,6 +267,12 @@ app.controller("productMana", function($scope, $http) {
 		}
 		$scope.maxQuantityProduct = 9 * index;
 		$scope.currentPage = index;
+
+		var arrPageNum = document.getElementsByClassName("pageNumber");
+		for (var i = 0; i < arrPageNum.length; i++) {
+			arrPageNum[i].classList.remove("active");
+		}
+		arrPageNum[index - 1].classList.add("active");
 	}
 
 	// nextPage and PreviousPage
@@ -269,6 +342,4 @@ app.controller("productMana", function($scope, $http) {
 					.appendChild(row);
 			}
 		});
-
-
 });
