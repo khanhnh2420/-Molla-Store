@@ -1,6 +1,8 @@
 package com.fourTL.controller.site.LoginAndRegister;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -71,7 +73,7 @@ public class LoginController {
 				authorities.setRole(role);
 
 				accountsDAO.save(account);
-				authoritiesDAO.save(authorities);			
+				authoritiesDAO.save(authorities);
 			}
 
 			userService.loginFromOAuth2(oauth2);

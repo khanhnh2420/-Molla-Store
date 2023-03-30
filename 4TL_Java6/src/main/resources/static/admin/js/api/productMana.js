@@ -3,13 +3,14 @@ app.controller("productMana", function($scope, $http) {
 	$scope.form = {};
 	$scope.items = [];
 	$scope.categories = [];
-	$scope.pageTotal = 1;
-	$scope.currentPage = 1;
+	$scope.pageTotal = 1; // tổng số trang
+	$scope.currentPage = 1; // trang hiện tại
 	$scope.minQuantityProduct = 0;
 	$scope.maxQuantityProduct = 9; // hiển thị 9 product trên 1 trang
-	$scope.filePoster = null;
-	$scope.fileThumbnails = null;
+	$scope.filePoster = null; // danh sách poster dc chọn
+	$scope.fileThumbnails = null; // danh sách thumbnail dc chọn
 
+	// Reset Form
 	$scope.reset = function() {
 		$scope.form = {};
 		$scope.key = null;
@@ -21,14 +22,14 @@ app.controller("productMana", function($scope, $http) {
 		};
 		document.getElementById("selectedThumbnails").innerHTML = "";
 		document.getElementById("selectedImage").setAttribute('src', '');
-;
+		;
 		$scope.filePoster = null;
 		$scope.fileThumbnails = null;
 		$scope.messageSuccess = "";
 		$scope.messageFailed = "";
-		$scope.messageSuccess = "";
-		$scope.messageFailed = "";
 	}
+
+	// Load danh sách sản phẩm
 	$scope.load_all = function() {
 		var url = `${host}/admin/api/product`;
 		$http.get(url).then(resp => {
@@ -39,6 +40,8 @@ app.controller("productMana", function($scope, $http) {
 			console.log("Error", error);
 		});
 	}
+
+	// Load danh sách thể loại
 	$scope.load_all_categories = function() {
 		var url = `${host}/admin/api/product/categories`;
 		$http.get(url).then(resp => {
@@ -47,6 +50,36 @@ app.controller("productMana", function($scope, $http) {
 			console.log("Error", error);
 		});
 	}
+
+	// Load danh sách theo tìm kiếm
+	$scope.search = function() {
+		if ($scope.searchInput == "" || $scope.searchInput == null || $scope.searchInput == undefined) {
+			$scope.load_all();
+		} else {
+			var url = `${host}/admin/api/product/search/${$scope.searchInput}`;
+			$http.get(url).then(resp => {
+				$scope.items = resp.data;
+				$scope.pageTotal = Math.ceil($scope.items.length / 9);
+				document.getElementsByClassName("pageNumber")[0].classList.add("active");
+			}).catch(error => {
+				console.log("Error", error);
+			});
+		}
+	}
+	var input = document.getElementById("search");
+
+	// Lắng nghe sự kiện keydown trên thanh search
+	input.addEventListener("keydown", function(event) {
+		// Kiểm tra nếu phím được nhấn là phím Enter
+		if (event.key === "Enter") {
+			// Ngăn chặn hành động mặc định của phím Enter (submit form)
+			event.preventDefault();
+			// Thực hiện click button
+			$scope.search();
+		}
+	});
+
+	// hiển thị sản phẩm lên form
 	$scope.edit = function(id) {
 		$scope.messageSuccess = "";
 		$scope.messageFailed = "";
@@ -59,7 +92,10 @@ app.controller("productMana", function($scope, $http) {
 			console.log("Error", error);
 		});
 	}
-	// hiển thị hình ảnh thumbnail khi chọn edit
+
+	/* hiển thị hình ảnh thumbnail khi chọn edit 
+		   arrImages : mảng ảnh thumbnail
+	*/
 	$scope.thumbnail = function(arrImages) {
 		let row = document.createElement("div");
 		row.classList.add("row");
@@ -89,6 +125,10 @@ app.controller("productMana", function($scope, $http) {
 				.appendChild(row);
 		}
 	}
+
+	/* Call API tạo sản phẩm phía server 
+		 - item : object product dạng JSON 
+	*/
 	$scope.create = function(item) {
 		var url = `${host}/admin/api/product`;
 		$http.post(url, item).then(resp => {
@@ -104,6 +144,7 @@ app.controller("productMana", function($scope, $http) {
 		});
 	}
 
+	// gán sự kiện cho nút create
 	$scope.create_btn = function() {
 		$scope.messageSuccess = "";
 		$scope.messageFailed = "";
@@ -130,6 +171,9 @@ app.controller("productMana", function($scope, $http) {
 			});
 	}
 
+	/* Tạo image trong folder
+		files : mảng image cần tạo
+	*/
 	$scope.createImageInFolder = function(files) {
 		return new Promise(function(resolve, reject) {
 			var form = new FormData();
@@ -152,7 +196,10 @@ app.controller("productMana", function($scope, $http) {
 				});
 		});
 	};
-	// delete image in folder products
+
+	/* Xóa image trong folder products 
+		filename : (String) tên file cần xóa
+	*/
 	$scope.deleteImageInFolder = function(filename) {
 		$http.delete(`${host}/files/products/${filename}`).then(resp => {
 			console.log("success");
@@ -161,20 +208,27 @@ app.controller("productMana", function($scope, $http) {
 		});
 	}
 
+	/* Gán sự kiện cho nút update 
+		- Nếu tạo poster thành công -> tạo thumbnail -> update
+		- Nếu tạo poster thất bại (dùng lại cũ) -> tạo thumbnail -> update
+		- Nếu tạo poster thất bại (dùng lại cũ) -> tạo thumbnail thất bại (dùng lại cũ) -> update
+	*/
 	$scope.update_btn = function() {
 		$scope.messageSuccess = "";
 		$scope.messageFailed = "";
 		var item = angular.copy($scope.form);
-
+		// Tạo image poster trong folder
 		$scope.createImageInFolder($scope.filePoster)
 			.then(function(dataPoster) {
 				item.poster = dataPoster[0] + "";
 				$scope.createImageInFolder($scope.fileThumbnails)
 					.then(function(dataThumbnail) {
+						// Tạo image thumbnail trong folder
 						item.thumbnail = dataThumbnail.map(x => x).join("-*-");
 						$scope.update(item);
 					})
 					.catch(function(error) {
+						// Tạo image thumbnail trong folder thất bại dùng lại thumbnail cũ
 						console.log(error);
 						for (let i = 0; i < $scope.items.length; i++) {
 							if ($scope.items[i].id == $scope.key) {
@@ -185,6 +239,7 @@ app.controller("productMana", function($scope, $http) {
 					});
 			})
 			.catch(function(error) {
+				// Tạo image poster trong folder thất bại dùng lại poster cũ
 				console.log(error);
 				for (let i = 0; i < $scope.items.length; i++) {
 					if ($scope.items[i].id == $scope.key) {
@@ -193,10 +248,12 @@ app.controller("productMana", function($scope, $http) {
 				}
 				$scope.createImageInFolder($scope.fileThumbnails)
 					.then(function(dataThumbnail) {
+						// Tạo image thumbnail trong folder
 						item.thumbnail = dataThumbnail.map(x => x).join("-*-");
 						$scope.update(item);
 					})
 					.catch(function(error) {
+						// Tạo image thumbnail trong folder thất bại dùng lại thumbnail cũ
 						console.log(error);
 						for (let i = 0; i < $scope.items.length; i++) {
 							if ($scope.items[i].id == $scope.key) {
@@ -208,6 +265,7 @@ app.controller("productMana", function($scope, $http) {
 			});
 	}
 
+	// Call API update phía server
 	$scope.update = function(item) {
 		var url = `${host}/admin/api/product/${$scope.key}`;
 		$http.put(url, item).then(resp => {
@@ -221,6 +279,7 @@ app.controller("productMana", function($scope, $http) {
 		});
 	}
 
+	// Call API delete phía server
 	$scope.delete = function(id) {
 		$scope.messageSuccess = "";
 		$scope.messageFailed = "";
@@ -228,6 +287,7 @@ app.controller("productMana", function($scope, $http) {
 		$http.delete(url).then(resp => {
 			var index = $scope.items.findIndex(item => item.id == id);
 			$scope.items[index].poster;
+			// delete image trong folder
 			$scope.deleteImageInFolder($scope.items[index].poster);
 			$scope.arrThumbnails = $scope.form.thumbnail.split('-*-');
 			for (let i = 0; i < $scope.arrThumbnails.length; i++) {
@@ -242,6 +302,7 @@ app.controller("productMana", function($scope, $http) {
 			$scope.messageFailed = "Xóa thất bại!";
 		});
 	}
+
 	// Thực hiện tải toàn bộ product
 	$scope.load_all();
 	$scope.load_all_categories();

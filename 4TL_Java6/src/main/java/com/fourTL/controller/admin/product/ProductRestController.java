@@ -39,6 +39,11 @@ public class ProductRestController {
 		return ResponseEntity.ok(productsDAO.findAll());
 	}
 	
+	@GetMapping("/search/{search}")
+	public ResponseEntity<List<Products>> search(Model model, @PathVariable("search") String search) {
+		return ResponseEntity.ok(productsDAO.findByNameContaining(search));
+	}
+	
 	@GetMapping("/categories")
 	public ResponseEntity<List<Categories>> getAllCategories(Model model) {
 		return ResponseEntity.ok(categoriesDAO.findAll());
