@@ -202,8 +202,8 @@
 													<div class="menu-title">Category Details</div>
 													<!-- End .menu-title -->
 													<ul style="max-height: 16em;" ng-controller="Category">
-														<li ng-repeat="item in categories">
-															<a href="#">{{item.name}}</a>
+														<li ng-repeat="(key, value) in categories">
+															<a href="#">{{value.nameCategory}}</a>
 														</li>
 													</ul>
 													<script src="/assets/AngularJS API/Categories.js"></script>

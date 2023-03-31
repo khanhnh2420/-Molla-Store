@@ -705,14 +705,14 @@
 										<div class="widget-body">
 											<div class="filter-items filter-items-count" ng-controller="Category">
 
-												<div class="filter-item" ng-repeat="item in categories">
+												<div class="filter-item" ng-repeat="(key, value) in categories">
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" class="custom-control-input"
 															id="cat-1"> <label class="custom-control-label"
-															for="cat-1">{{item.name}}</label>
+															for="cat-1">{{value.nameCategory}}</label>
 													</div>
 													<!-- End .custom-checkbox -->
-													<span class="item-count">3</span>
+													<span class="item-count">{{value.qtyProduct}}</span>
 												</div>
 												<!-- End .filter-item -->
 
