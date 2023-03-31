@@ -18,4 +18,5 @@ public interface ProductsDAO extends JpaRepository<Products, Integer> {
 	//Tìm sản phẩm theo search
 	List<Products> findByNameContaining(String search);
 	
+	long countByCategoryId(String categoryId);
 }
