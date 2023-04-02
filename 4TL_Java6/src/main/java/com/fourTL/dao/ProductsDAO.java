@@ -25,4 +25,7 @@ public interface ProductsDAO extends JpaRepository<Products, Integer> {
 	@Query("SELECT p FROM Products p WHERE p.category.id = ?1")
 	Page<Products> findByCategoryId(String categoryId, Pageable pageable);
 
+	// Tìm sản phẩm theo Source
+	@Query("SELECT p FROM Products p WHERE p.source = ?1")
+	Page<Products> findBySource(String source, Pageable pageable);
 }
