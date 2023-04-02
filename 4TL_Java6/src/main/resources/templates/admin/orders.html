@@ -19,10 +19,10 @@
 		<div class="container-lg">
 			<div class="row flex-row-reverse">
 				<div class="input-group w-25">
-					<input type="search" class="form-control rounded"
+					<input type="search" class="form-control rounded" ng-model="searchInput" id="search"
 						placeholder="Search by bill..." aria-label="Search"
 						aria-describedby="search-addon" />
-					<button type="button" class="btn btn-outline-primary">search</button>
+					<button type="button" class="btn btn-outline-primary" ng-click="search()">search</button>
 				</div>
 			</div>
 			<table class="table table-bordered text-center"
@@ -52,7 +52,7 @@
 						<td>{{orders.status}}</td>
 						<td><a class="btn btn btn-danger"
 							ng-click="delete(orders.id)">Delete</a> <a
-							class="btn btn btn-info" ng-click="delete(orders.id)">SendMail</a></td>
+							class="btn btn btn-info" ng-click="sendEmail()">Confirm</a></td>
 					</tr>
 				</tbody>
 			</table>

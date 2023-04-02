@@ -2,6 +2,7 @@ package com.fourTL.controller.admin.Invoicemanagement;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -12,21 +13,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fourTL.controller.mail.contact.mail_CONSTANT;
 import com.fourTL.dao.CategoriesDAO;
 import com.fourTL.dao.OrdersDAO;
 import com.fourTL.entities.Categories;
+import com.fourTL.entities.MailInfo;
 import com.fourTL.entities.Orders;
+
+import com.fourTL.service.MailService;
+
+
 
 
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/admin/api/order")
 public class InvoiceManagementRestController {
+	mail_CONSTANT mailBody = new mail_CONSTANT();
 	@Autowired
 	OrdersDAO ordersdao;
 
 	@Autowired
 	CategoriesDAO categoriesDAO;
+	
+	@Autowired
+	MailService mailService;
 
 	@GetMapping("")
 	public ResponseEntity<List<Orders>> getAll(Model model) {
@@ -36,6 +47,11 @@ public class InvoiceManagementRestController {
 	@GetMapping("/categories")
 	public ResponseEntity<List<Categories>> getAllCategories(Model model) {
 		return ResponseEntity.ok(categoriesDAO.findAll());
+	}
+	
+	@GetMapping("/search/{search}")
+	public ResponseEntity<List<Orders>> search(Model model, @PathVariable("search") String search) {
+		return ResponseEntity.ok(ordersdao.findByUsernameContaining(search));
 	}
 	
 	@GetMapping("{id}")
@@ -53,5 +69,13 @@ public class InvoiceManagementRestController {
 		}
 		ordersdao.deleteById(id);
 		return ResponseEntity.ok().build();
+	}
+	
+	public void sendMail(String txtTo, String username, String source) {
+		MailInfo mail = new MailInfo();
+		mail.setTo(txtTo);
+		mail.setSubject("Xác nhận hoàn tất đơn hàng này");
+		mail.setBody(mailBody.mail_order(username, source));
+		mailService.queue(mail);
 	}
 }
