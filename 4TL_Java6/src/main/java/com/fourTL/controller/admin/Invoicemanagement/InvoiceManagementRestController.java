@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -71,11 +73,14 @@ public class InvoiceManagementRestController {
 		return ResponseEntity.ok().build();
 	}
 	
-	public void sendMail(String txtTo, String username, String source) {
-		MailInfo mail = new MailInfo();
-		mail.setTo(txtTo);
-		mail.setSubject("Xác nhận hoàn tất đơn hàng này");
-		mail.setBody(mailBody.mail_order(username, source));
-		mailService.queue(mail);
+	@PostMapping("/sendEmail")
+	public ResponseEntity<MailInfo> sendMail(@RequestBody MailInfo mailInfo) {
+		System.out.println("abc");
+//		MailInfo mail = new MailInfo();
+//		mail.setTo(txtTo);
+//		mail.setSubject("Xác nhận hoàn tất đơn hàng này");
+//		mail.setBody(mailBody.mail_order(username, source));
+//		mailService.queue(mail);
+		return ResponseEntity.ok(mailInfo);
 	}
 }

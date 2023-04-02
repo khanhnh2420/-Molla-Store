@@ -27,7 +27,7 @@ app.controller("ordersMana", function($scope, $http) {
 			console.log("Error", error);
 		});
 	}
-	
+
 	// Load danh sách theo tìm kiếm
 	$scope.search = function() {
 		if ($scope.searchInput == "" || $scope.searchInput == null || $scope.searchInput == undefined) {
@@ -44,7 +44,7 @@ app.controller("ordersMana", function($scope, $http) {
 		}
 	}
 	var input = document.getElementById("search");
-	
+
 	// Lắng nghe sự kiện keydown trên thanh search
 	input.addEventListener("keydown", function(event) {
 		// Kiểm tra nếu phím được nhấn là phím Enter
@@ -55,23 +55,32 @@ app.controller("ordersMana", function($scope, $http) {
 			$scope.search();
 		}
 	});
-	
+
 	// senmail
-	 $scope.sendEmail = function() {
-      var emailData = {
-        to: 'huymat890@gmail.com',
-        subject: 'Test Email',
-        body: 'This is a test email sent from AngularJS'
-      };
-      
-      $http.post('/api/order/send-email', emailData)
-        .then(function(response) {
-          console.log('Đã gửi Email thành công!');
-        })
-        .catch(function(error) {
-          console.error('Rất tiếc! Email gửi không thành công:', error);
-        });
-    };
+	$scope.sendEmail = function() {
+		var emailData = {
+			"from": "4Tl",
+			"to":"huymat890@gmail.com",
+			"cc": [
+				"",
+				"",
+			],
+			"bcc": [
+				"",
+				"",
+			],
+			"subject": "Test Email",
+			"body": "This is a test email sent from AngularJS"
+		};
+
+		$http.post(`${host}/api/order/send-email`, emailData)
+			.then(function(response) {
+				console.log('Đã gửi Email thành công!');
+			})
+			.catch(function(error) {
+				console.error('Rất tiếc! Email gửi không thành công:', error);
+			});
+	};
 
 	// Thực hiện tải toàn bộ order
 	$scope.load_all();
