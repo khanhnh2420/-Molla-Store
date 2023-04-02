@@ -63,17 +63,17 @@ app.controller("ordersMana", function($scope, $http) {
 			"to":"huymat890@gmail.com",
 			"cc": [
 				"",
-				"",
+				""
 			],
 			"bcc": [
 				"",
-				"",
+				""
 			],
 			"subject": "Test Email",
 			"body": "This is a test email sent from AngularJS"
 		};
 
-		$http.post(`${host}/api/order/send-email`, emailData)
+		$http.post(`${host}/admin/api/order/sendEmail`, emailData)
 			.then(function(response) {
 				console.log('Đã gửi Email thành công!');
 			})

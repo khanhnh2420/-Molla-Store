@@ -24,6 +24,8 @@ import com.fourTL.entities.Orders;
 
 import com.fourTL.service.MailService;
 
+import jakarta.mail.MessagingException;
+
 
 
 
@@ -74,13 +76,12 @@ public class InvoiceManagementRestController {
 	}
 	
 	@PostMapping("/sendEmail")
-	public ResponseEntity<MailInfo> sendMail(@RequestBody MailInfo mailInfo) {
-		System.out.println("abc");
-//		MailInfo mail = new MailInfo();
-//		mail.setTo(txtTo);
-//		mail.setSubject("Xác nhận hoàn tất đơn hàng này");
-//		mail.setBody(mailBody.mail_order(username, source));
-//		mailService.queue(mail);
+	public ResponseEntity<MailInfo> sendMail(@RequestBody MailInfo mailInfo) throws MessagingException {
+		MailInfo mail = new MailInfo();
+		mail.setTo(mailInfo.getTo());
+		mail.setSubject("Thông Báo Tạo Tài Khoản Thành Công");
+		mail.setBody(mailBody.mail_order(mailInfo.getFrom(), mailInfo.getBody()));
+		mailService.send(mail);
 		return ResponseEntity.ok(mailInfo);
 	}
 }
