@@ -62,6 +62,10 @@ app.controller("Cart-ctrl", function($scope, $http){
 			console.log("Error", error)
 		})
 	}
+
+	$scope.resetCategory = function(){
+		localStorage.removeItem("getAllBySize");
+	}
 	
 	$scope.load_all();
 })

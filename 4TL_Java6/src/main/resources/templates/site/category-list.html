@@ -30,7 +30,7 @@
 				<div class="container">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a th:href="@{|/|}">Home</a></li>
-						<li class="breadcrumb-item"><a th:href="@{|/|}">Shop</a></li>
+						<li class="breadcrumb-item"><a link="/category" ng-click="goToCategoryPage($event,4)">Shop</a></li>
 						<li class="breadcrumb-item active" aria-current="page">List</li>
 					</ol>
 				</div>
@@ -73,8 +73,8 @@
 												<rect x="0" y="6" width="4" height="4" />
 												<rect x="6" y="6" width="10" height="4" />
 											</svg>
-										</a> <a th:href="@{|/category-2cols|}" class="btn-layout"> <svg width="10"
-												height="10">
+										</a> <a link="/category-2cols" ng-click="goToCategoryPage($event,6)"
+											class="btn-layout"> <svg width="10" height="10">
 												<rect x="0" y="0" width="4" height="4" />
 												<rect x="6" y="0" width="4" height="4" />
 												<rect x="0" y="6" width="4" height="4" />
@@ -89,8 +89,8 @@
 												<rect x="6" y="6" width="4" height="4" />
 												<rect x="12" y="6" width="4" height="4" />
 											</svg>
-										</a> <a th:href="@{|/category-4cols|}" class="btn-layout"> <svg width="22"
-												height="10">
+										</a> <a link="/category-4cols" ng-click="goToCategoryPage($event,12)"
+											class="btn-layout"> <svg width="22" height="10">
 												<rect x="0" y="0" width="4" height="4" />
 												<rect x="6" y="0" width="4" height="4" />
 												<rect x="12" y="0" width="4" height="4" />
@@ -190,17 +190,21 @@
 							<nav aria-label="Page navigation">
 								<ul class="pagination">
 									<li class="page-item" ng-class="{ disabled: products.first }">
-										<button class="page-link page-link-prev" aria-label="Previous" ng-click="getPrevPage()" tabindex="-1" aria-disabled="{{currentPage === 1}}">
+										<button class="page-link page-link-prev" aria-label="Previous"
+											ng-click="getPrevPage()" tabindex="-1"
+											aria-disabled="{{currentPage === 1}}">
 											<span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
 										</button>
 									</li>
-									<li class="page-item" ng-repeat="pNum in [].constructor(products.totalPages) track by $index"
+									<li class="page-item"
+										ng-repeat="pNum in [].constructor(products.totalPages) track by $index"
 										ng-class="{ active: $index === currentPage }">
 										<button class="page-link" ng-click="get_ByPage($index)">{{$index + 1}}</button>
 									</li>
 									<li class="page-item-total">of {{products.totalPages}}</li>
 									<li class="page-item" ng-class="{ disabled: products.last }">
-										<button class="page-link page-link-next" aria-label="Next" ng-click="getNextPage()">
+										<button class="page-link page-link-next" aria-label="Next"
+											ng-click="getNextPage()">
 											Next <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
 										</button>
 									</li>
@@ -211,7 +215,8 @@
 						<aside class="col-lg-3 order-lg-first">
 							<div class="sidebar sidebar-shop">
 								<div class="widget widget-clean">
-									<label>Filters:</label> <a href="#" class="sidebar-filter-clear">Clean All</a>
+									<label>Filters:</label> <a href="" ng-click="get_all()"
+										class="sidebar-filter-clear">Clean All</a>
 								</div>
 								<!-- End .widget widget-clean -->
 
@@ -224,85 +229,17 @@
 
 									<div class="collapse show" id="widget-1">
 										<div class="widget-body">
-											<div class="filter-items filter-items-count">
-												<div class="filter-item">
+											<div class="filter-items filter-items-count" ng-controller="Category">
+												<div class="filter-item" ng-repeat="(key, value) in categories">
 													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" id="cat-1">
-														<label class="custom-control-label" for="cat-1">Dresses</label>
+														<input type="checkbox" class="custom-control-input"
+															ng-click="get_ByCategory($event,key)"
+															id="{{'cat-' + $index}}"> <label
+															class="custom-control-label"
+															for="{{'cat-' + $index}}">{{value.nameCategory}}</label>
 													</div>
 													<!-- End .custom-checkbox -->
-													<span class="item-count">3</span>
-												</div>
-												<!-- End .filter-item -->
-
-												<div class="filter-item">
-													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" id="cat-2">
-														<label class="custom-control-label" for="cat-2">T-shirts</label>
-													</div>
-													<!-- End .custom-checkbox -->
-													<span class="item-count">0</span>
-												</div>
-												<!-- End .filter-item -->
-
-												<div class="filter-item">
-													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" id="cat-3">
-														<label class="custom-control-label" for="cat-3">Bags</label>
-													</div>
-													<!-- End .custom-checkbox -->
-													<span class="item-count">4</span>
-												</div>
-												<!-- End .filter-item -->
-
-												<div class="filter-item">
-													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" id="cat-4">
-														<label class="custom-control-label" for="cat-4">Jackets</label>
-													</div>
-													<!-- End .custom-checkbox -->
-													<span class="item-count">2</span>
-												</div>
-												<!-- End .filter-item -->
-
-												<div class="filter-item">
-													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" id="cat-5">
-														<label class="custom-control-label" for="cat-5">Shoes</label>
-													</div>
-													<!-- End .custom-checkbox -->
-													<span class="item-count">2</span>
-												</div>
-												<!-- End .filter-item -->
-
-												<div class="filter-item">
-													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" id="cat-6">
-														<label class="custom-control-label" for="cat-6">Jumpers</label>
-													</div>
-													<!-- End .custom-checkbox -->
-													<span class="item-count">1</span>
-												</div>
-												<!-- End .filter-item -->
-
-												<div class="filter-item">
-													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" id="cat-7">
-														<label class="custom-control-label" for="cat-7">Jeans</label>
-													</div>
-													<!-- End .custom-checkbox -->
-													<span class="item-count">1</span>
-												</div>
-												<!-- End .filter-item -->
-
-												<div class="filter-item">
-													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" id="cat-8">
-														<label class="custom-control-label"
-															for="cat-8">Sportwear</label>
-													</div>
-													<!-- End .custom-checkbox -->
-													<span class="item-count">0</span>
+													<span class="item-count">{{value.qtyProduct}}</span>
 												</div>
 												<!-- End .filter-item -->
 											</div>

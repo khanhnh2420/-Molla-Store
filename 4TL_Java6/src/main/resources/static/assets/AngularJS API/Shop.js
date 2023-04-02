@@ -1,5 +1,5 @@
 
-app.controller("Shop-ctrl", function ($scope, $http) {
+app.controller("Shop-ctrl", function ($scope, $http, $anchorScroll, $location) {
 
 	$scope.products = {};
 
@@ -29,7 +29,12 @@ app.controller("Shop-ctrl", function ($scope, $http) {
 		}).catch(error => {
 			console.log("Error", error)
 		})
+		$scope.scrollToTop();
 	}
+	$scope.scrollToTop = function () {
+		$location.hash('sortby');
+		$anchorScroll();
+	};
 
 	$scope.get_ByCategory = function (event, categoryId, page, size) {
 		if (event.target.checked) {

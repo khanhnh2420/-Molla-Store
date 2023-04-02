@@ -30,7 +30,7 @@
 				<div class="container">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a th:href="@{|/|}">Home</a></li>
-						<li class="breadcrumb-item"><a th:href="@{|/|}">Shop</a></li>
+						<li class="breadcrumb-item"><a link="/category" ng-click="goToCategoryPage($event,9)">Shop</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Products</li>
 					</ol>
 				</div>
@@ -169,7 +169,6 @@
 										</div>
 										<!-- End .product -->
 									</div>
-
 									<!-- End .col-sm-6 col-lg-4 -->
 								</div>
 								<!-- End .row -->
@@ -177,19 +176,23 @@
 							<!-- End .products -->
 
 							<nav aria-label="Page navigation">
-								<ul class="pagination justify-content-center">
+								<ul class="pagination">
 									<li class="page-item" ng-class="{ disabled: products.first }">
-										<button class="page-link page-link-prev" aria-label="Previous" ng-click="getPrevPage()" tabindex="-1" aria-disabled="{{currentPage === 1}}">
+										<button class="page-link page-link-prev" aria-label="Previous"
+											ng-click="getPrevPage()" tabindex="-1"
+											aria-disabled="{{currentPage === 1}}">
 											<span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
 										</button>
 									</li>
-									<li class="page-item" ng-repeat="pNum in [].constructor(products.totalPages) track by $index"
+									<li class="page-item"
+										ng-repeat="pNum in [].constructor(products.totalPages) track by $index"
 										ng-class="{ active: $index === currentPage }">
 										<button class="page-link" ng-click="get_ByPage($index)">{{$index + 1}}</button>
 									</li>
 									<li class="page-item-total">of {{products.totalPages}}</li>
 									<li class="page-item" ng-class="{ disabled: products.last }">
-										<button class="page-link page-link-next" aria-label="Next" ng-click="getNextPage()">
+										<button class="page-link page-link-next" aria-label="Next"
+											ng-click="getNextPage()">
 											Next <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
 										</button>
 									</li>
@@ -200,7 +203,7 @@
 						<aside class="col-lg-3 order-lg-first">
 							<div class="sidebar sidebar-shop">
 								<div class="widget widget-clean">
-									<label>Filters:</label> <a th:href="@{|/category|}" ng-click="get_all()"
+									<label>Filters:</label> <a href="" ng-click="get_all()"
 										class="sidebar-filter-clear">Clean All</a>
 								</div>
 								<!-- End .widget widget-clean -->
@@ -215,7 +218,6 @@
 									<div class="collapse show" id="widget-1">
 										<div class="widget-body">
 											<div class="filter-items filter-items-count" ng-controller="Category">
-
 												<div class="filter-item" ng-repeat="(key, value) in categories">
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" class="custom-control-input"
@@ -228,7 +230,6 @@
 													<span class="item-count">{{value.qtyProduct}}</span>
 												</div>
 												<!-- End .filter-item -->
-
 											</div>
 											<!-- End .filter-items -->
 										</div>
