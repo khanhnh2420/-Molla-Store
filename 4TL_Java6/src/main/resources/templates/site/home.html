@@ -117,8 +117,8 @@
 										</div>
 										<!-- End .row -->
 									</div> <!-- End .megamenu megamenu-sm --></li>
-								<li ng-repeat="item in categories">
-									<a href="#">{{item.name}}</a>
+								<li ng-repeat="(key, value) in categories">
+									<a href="#">{{value.nameCategory}}</a>
 								</li>
 							</ul>
 							<!-- End .menu -->
@@ -389,7 +389,7 @@
 										</h3>
 										<!-- End .product-title -->
 										<div class="product-price"
-											th:text="${#numbers.formatDecimal(p.product.price, 1, 'COMMA', 2, 'POINT')} + ' VND'"></div>
+											th:text="${#numbers.formatDecimal(p.product.price, 1, 'COMMA', 0, 'POINT')} + ' VND'"></div>
 										<!-- End .product-price -->
 									</div>
 									<!-- End .product-body -->
@@ -1018,7 +1018,7 @@
 												<!-- End .product-action-vertical -->
 
 												<div class="product-action">
-													<a href="#" class="btn-product btn-cart"><span>add
+													<a th:data-product-id="${p.id}" ng-click="addCart($event)" class="btn-product btn-cart"><span>add
 															to cart</span></a>
 												</div>
 												<!-- End .product-action -->
