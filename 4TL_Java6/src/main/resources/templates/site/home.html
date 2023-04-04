@@ -383,7 +383,7 @@
 										</div>
 										<!-- End .product-cat -->
 										<h3 class="product-title">
-											<a href="product.html" th:utext="${p.product.name}">Call
+											<a th:href="@{|/product/detail/${p.product.id}|}" th:utext="${p.product.name}">Call
 												of Duty <br>WWII - Gold Edition
 											</a>
 										</h3>
@@ -1031,7 +1031,7 @@
 												</div>
 												<!-- End .product-cat -->
 												<h3 class="product-title">
-													<a href="product.html" th:text=${p.name}>Tom Clancy’s <br>Ghost
+													<a th:href="@{|/product/detail/${p.id}|}" th:text=${p.name}>Tom Clancy’s <br>Ghost
 														Recon Wildlands
 													</a>
 												</h3>
