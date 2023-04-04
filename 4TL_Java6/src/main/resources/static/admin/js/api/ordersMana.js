@@ -63,7 +63,7 @@ app.controller("ordersMana", function($scope, $http) {
 		$http.get(url).then(resp => {
 			var source = "";
 			for(let i=0; i < resp.data.length; i++){
-				source+=resp.data[i].product.link;		
+				source+= "<p class='text' style='color:#666;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:14px;font-weight:400;font-style:normal;letter-spacing:normal;line-height:22px;text-transform:none;text-align:center;padding:0;margin:0'>"+resp.data[i].product.link+"</p>"		
 			}
 			var emailData = {
 			"from": "4Tl",
@@ -82,10 +82,10 @@ app.controller("ordersMana", function($scope, $http) {
 		console.log(emailData.source)
 		$http.post(`${host}/admin/api/order/sendEmail`, emailData)
 			.then(function(response) {
-				console.log('Đã gửi Email thành công!');
+				alert('Đã gửi Email thành công!');
 			})
 			.catch(function(error) {
-				console.error('Rất tiếc! Email gửi không thành công:', error);
+				alert('Rất tiếc! Email gửi không thành công:', error);
 			});
 		}).catch(error => {
 			console.log("Error", error);
