@@ -24,7 +24,7 @@
 							<div class="sidenav-title">Browse Categories</div>
 							<!-- End .sidenav-title -->
 							<ul class="menu-vertical sf-arrows" style="max-height: 27em;" ng-controller="Category">
-								<li class="megamenu-container"><a href="category.html"
+								<li class="megamenu-container"><a th:href="@{|/category|}"
 									class="sf-with-ul">XBOX</a>
 									<div class="megamenu">
 										<div class="row no-gutters">
@@ -82,7 +82,7 @@
 										</div>
 										<!-- End .row -->
 									</div> <!-- End .megamenu --></li>
-								<li><a href="product.html" class="sf-with-ul">Playstation</a>
+								<li><a th:href="@{|/category|}" class="sf-with-ul">Playstation</a>
 									<div class="megamenu megamenu-sm">
 										<div class="row no-gutters">
 											<div class="col-md-6">
@@ -118,7 +118,7 @@
 										<!-- End .row -->
 									</div> <!-- End .megamenu megamenu-sm --></li>
 								<li ng-repeat="(key, value) in categories">
-									<a href="#">{{value.nameCategory}}</a>
+									<a th:href="@{|/category|}">{{value.nameCategory}}</a>
 								</li>
 							</ul>
 							<!-- End .menu -->
