@@ -18,6 +18,7 @@ public class MailInfo {
 	String[] bcc;
 	String subject;
 	String body;
+	String source;
 	List<File> files = new ArrayList<>();
 
 	public MailInfo(String to, String subject, String body) {

@@ -52,7 +52,7 @@
 						<td>{{orders.status}}</td>
 						<td><a class="btn btn btn-danger"
 							ng-click="delete(orders.id)">Delete</a> <a
-							class="btn btn btn-info" ng-click="sendEmail()">Confirm</a></td>
+							class="btn btn btn-info" ng-click="sendEmail(orders.email, orders.id)">Confirm</a></td>
 					</tr>
 				</tbody>
 			</table>

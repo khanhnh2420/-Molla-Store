@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fourTL.controller.mail.contact.mail_CONSTANT;
 import com.fourTL.dao.CategoriesDAO;
+import com.fourTL.dao.OrderDetailsDAO;
 import com.fourTL.dao.OrdersDAO;
 import com.fourTL.entities.Categories;
 import com.fourTL.entities.MailInfo;
+import com.fourTL.entities.OrderDetails;
 import com.fourTL.entities.Orders;
 
 import com.fourTL.service.MailService;
@@ -39,6 +41,9 @@ public class InvoiceManagementRestController {
 
 	@Autowired
 	CategoriesDAO categoriesDAO;
+	
+	@Autowired
+	OrderDetailsDAO orderDetailsDAO;
 	
 	@Autowired
 	MailService mailService;
@@ -80,8 +85,13 @@ public class InvoiceManagementRestController {
 		MailInfo mail = new MailInfo();
 		mail.setTo(mailInfo.getTo());
 		mail.setSubject("Thông Báo Tạo Tài Khoản Thành Công");
-		mail.setBody(mailBody.mail_order(mailInfo.getFrom(), mailInfo.getBody()));
+		mail.setBody(mailBody.mail_order(mailInfo.getTo(), mailInfo.getSource()));
 		mailService.send(mail);
 		return ResponseEntity.ok(mailInfo);
+	}
+	
+	@GetMapping("/orderdetail/{id}")
+	public ResponseEntity<List<OrderDetails>> srcgame(Model model, @PathVariable("id") Long id) {
+		return ResponseEntity.ok(ordersdao.findById(id).get().getOrderDetails());
 	}
 }

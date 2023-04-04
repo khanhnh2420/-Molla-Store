@@ -57,10 +57,17 @@ app.controller("ordersMana", function($scope, $http) {
 	});
 
 	// senmail
-	$scope.sendEmail = function() {
-		var emailData = {
+	$scope.sendEmail = function(email, id) {
+		
+		var url = `${host}/admin/api/order/orderdetail/${id}`;
+		$http.get(url).then(resp => {
+			var source = "";
+			for(let i=0; i < resp.data.length; i++){
+				source+=resp.data[i].product.link;		
+			}
+			var emailData = {
 			"from": "4Tl",
-			"to":"huymat890@gmail.com",
+			"to":email,
 			"cc": [
 				"",
 				""
@@ -69,10 +76,10 @@ app.controller("ordersMana", function($scope, $http) {
 				"",
 				""
 			],
-			"subject": "Test Email",
-			"body": "This is a test email sent from AngularJS"
+			"subject": "XÁC NHẬN THANH TOÁN !",
+			"source":source
 		};
-
+		console.log(emailData.source)
 		$http.post(`${host}/admin/api/order/sendEmail`, emailData)
 			.then(function(response) {
 				console.log('Đã gửi Email thành công!');
@@ -80,6 +87,10 @@ app.controller("ordersMana", function($scope, $http) {
 			.catch(function(error) {
 				console.error('Rất tiếc! Email gửi không thành công:', error);
 			});
+		}).catch(error => {
+			console.log("Error", error);
+		});
+			
 	};
 
 	// Thực hiện tải toàn bộ order
