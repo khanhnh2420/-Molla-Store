@@ -41,14 +41,14 @@
 											<!-- End .header-menu -->
 										</div>
 									</li>
-									<li th:if="${not #authorization.expression('isAuthenticated()')}"><a
-											th:href="@{/login/form}">Sign in / Sign up</a></li>
+									<li
+										th:if="${not #authorization.expression('isAuthenticated()')}"><a
+										th:href="@{/login/form}">Sign in / Sign up</a></li>
 
 									<li th:if="${#authorization.expression('isAuthenticated()')}"><a
-											th:href="@{|/account?username=${#authentication.name}|}">[[${#authentication.name}]]</a>
+										th:href="@{|/account?username=${#authentication.name}|}">[[${#authentication.name}]]</a>
 										| <a th:href="@{/logout}">Sign Out</a></li>
-								</ul>
-							</li>
+								</ul></li>
 						</ul>
 						<!-- End .top-menu -->
 					</div>
@@ -63,18 +63,22 @@
 				<div class="container">
 					<div class="header-left">
 						<button class="mobile-menu-toggler">
-							<span class="sr-only">Toggle mobile menu</span> <i class="icon-bars"></i>
+							<span class="sr-only">Toggle mobile menu</span> <i
+								class="icon-bars"></i>
 						</button>
 
-						<a th:href="@{|/|}" class="logo"> <img th:src="@{|/assets/images/demos/demo-3/logo.png|}"
-								alt="Molla Logo" width="105" height="25">
+						<a th:href="@{|/|}" class="logo"> <img
+							th:src="@{|/assets/images/demos/demo-3/logo.png|}"
+							alt="Molla Logo" width="105" height="25">
 						</a>
 					</div>
 					<!-- End .header-left -->
 
 					<div class="header-center">
-						<div class="header-search header-search-extended header-search-visible d-none d-lg-block">
-							<a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+						<div
+							class="header-search header-search-extended header-search-visible d-none d-lg-block">
+							<a href="#" class="search-toggle" role="button"><i
+								class="icon-search"></i></a>
 							<form action="#" method="get">
 								<div class="header-search-wrapper search-wrapper-wide">
 									<label for="q" class="sr-only">Search</label>
@@ -93,14 +97,15 @@
 					<div class="header-right">
 						<div class="header-dropdown-link">
 							<div class="account">
-								<a th:if="${not #authorization.expression('isAuthenticated()')}" th:href="@{/logout}"
-									title="My account">
+								<a th:if="${not #authorization.expression('isAuthenticated()')}"
+									th:href="@{/logout}" title="My account">
 									<div class="icon">
 										<i class="icon-user"></i>
 									</div>
 									<p>Account</p>
 								</a> <a th:if="${#authorization.expression('isAuthenticated()')}"
-									th:href="@{|/account?username=${#authentication.name}|}" title="My account">
+									th:href="@{|/account?username=${#authentication.name}|}"
+									title="My account">
 									<div class="icon">
 										<i class="icon-user"></i>
 									</div>
@@ -112,7 +117,8 @@
 							<div class="wishlist">
 								<a href="#" title="Wishlist">
 									<div class="icon">
-										<i class="icon-heart-o"></i> <span class="wishlist-count badge">3</span>
+										<i class="icon-heart-o"></i> <span
+											class="wishlist-count badge">3</span>
 									</div>
 									<p>Wishlist</p>
 								</a>
@@ -120,16 +126,18 @@
 							<!-- End .compare-dropdown -->
 
 							<div class="dropdown cart-dropdown">
-								<a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"
-									aria-haspopup="true" aria-expanded="false" data-display="static">
+								<a href="#" class="dropdown-toggle" role="button"
+									data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false" data-display="static">
 									<div class="icon">
-										<i class="icon-shopping-cart"></i>
-										<span class="cart-count" ng-show="cartLength > 0">{{cartLength}}</span>
+										<i class="icon-shopping-cart"></i> <span class="cart-count"
+											ng-show="cartLength > 0">{{cartLength}}</span>
 									</div>
 									<p>Cart</p>
 								</a>
 
-								<div class="dropdown-menu dropdown-menu-right" ng-show="cartLength > 0">
+								<div class="dropdown-menu dropdown-menu-right"
+									ng-show="cartLength > 0">
 									<div class="dropdown-cart-products box">
 										<ul style="max-height: 26em;">
 											<li ng-repeat="item in cart">
@@ -139,39 +147,40 @@
 															<a href="product.html">{{item.product.name}}</a>
 														</h4>
 
-														<span class="cart-product-info">
-															<span class="cart-product-qty">{{ item.quantity }}</span> x
-															{{ item.product.price | number:0 }} VND
+														<span class="cart-product-info"> <span
+															class="cart-product-qty">{{ item.quantity }}</span> x {{
+															item.product.price | number:0 }} VND
 														</span>
-														  
+
 													</div>
 													<!-- End .product-cart-details -->
 
 													<figure class="product-image-container">
-														<a href="/product/detail/{{item.product.id}}" class="product-image"> <img
-																src="/assets/images/products/{{item.product.poster}}"
-																alt="product">
+														<a href="/product/detail/{{item.product.id}}"
+															class="product-image"> <img
+															src="/assets/images/products/{{item.product.poster}}"
+															alt="product">
 														</a>
 													</figure>
 													<a class="btn-remove" data-cart-id="{{item.product.id}}"
 														ng-click="removeCart($event)" title="Remove Product"><i
-															class="icon-close"></i></a>
-												</div>
-												<!-- End .product -->
+														class="icon-close"></i></a>
+												</div> <!-- End .product -->
 											</li>
 										</ul>
 									</div>
 									<!-- End .cart-product -->
 
 									<div class="dropdown-cart-total">
-										<span>Total</span> <span class="cart-total-price">{{cartTotal | number:0}} VND</span>
+										<span>Total</span> <span class="cart-total-price">{{cartTotal
+											| number:0}} VND</span>
 									</div>
 									<!-- End .dropdown-cart-total -->
 
 									<div class="dropdown-cart-action">
-										<a th:href="@{|/viewCart|}" class="btn btn-primary">View Cart</a> <a href="/checkout"
-											class="btn btn-outline-primary-2"><span>Checkout</span><i
-												class="icon-long-arrow-right"></i></a>
+										<a th:href="@{|/viewCart|}" class="btn btn-primary">View
+											Cart</a> <a href="/checkout" class="btn btn-outline-primary-2"><span>Checkout</span><i
+											class="icon-long-arrow-right"></i></a>
 									</div>
 									<!-- End .dropdown-cart-total -->
 								</div>
@@ -193,7 +202,8 @@
 							<ul class="menu sf-arrows">
 								<li class="megamenu-container active"><a href="/">Home</a></li>
 								<li><a th:href="@{|/category|}" ng-click="resetCategory()">Shop</a></li>
-								<li><a th:href="@{|/category|}" ng-click="resetCategory()" class="sf-with-ul">Category</a>
+								<li><a th:href="@{|/category|}" ng-click="resetCategory()"
+									class="sf-with-ul">Category</a>
 
 									<div class="megamenu megamenu-sm">
 										<div class="row no-gutters">
@@ -202,9 +212,8 @@
 													<div class="menu-title">Category Details</div>
 													<!-- End .menu-title -->
 													<ul style="max-height: 16em;" ng-controller="Category">
-														<li ng-repeat="(key, value) in categories">
-															<a th:href="@{|/category|}">{{value.nameCategory}}</a>
-														</li>
+														<li ng-repeat="(key, value) in categories"><a
+															th:href="@{|/category|}">{{value.nameCategory}}</a></li>
 													</ul>
 													<script src="/assets/AngularJS API/Categories.js"></script>
 												</div>
@@ -214,8 +223,8 @@
 
 											<div class="col-md-6">
 												<div class="banner banner-overlay">
-													<a href="category.html"> <img src="/assets/images/menu/banner-3.jpg"
-															alt="Banner">
+													<a href="category.html"> <img
+														src="/assets/images/menu/banner-3.jpg" alt="Banner">
 
 														<div class="banner-content banner-content-bottom">
 															<div class="banner-title text-white">
@@ -231,10 +240,12 @@
 											<!-- End .col-md-6 -->
 										</div>
 										<!-- End .row -->
-									</div> <!-- End .megamenu megamenu-sm -->
-								</li>
+									</div> <!-- End .megamenu megamenu-sm --></li>
 								<li><a href="/aboutus">About Us</a></li>
 								<li><a href="/contact">Contacts</a></li>
+								<li
+									th:if="${#authorization.expression('isAuthenticated() and (hasRole(''DIRE'') or hasRole(''STAF''))')}"><a
+									href="/admin/dashboard">Admin</a></li>
 							</ul>
 							<!-- End .menu -->
 						</nav>
@@ -264,25 +275,28 @@
 			<span class="mobile-menu-close"><i class="icon-close"></i></span>
 
 			<form action="#" method="get" class="mobile-search">
-				<label for="mobile-search" class="sr-only">Search</label> <input type="search" class="form-control"
-					name="mobile-search" id="mobile-search" placeholder="Search in..." required>
+				<label for="mobile-search" class="sr-only">Search</label> <input
+					type="search" class="form-control" name="mobile-search"
+					id="mobile-search" placeholder="Search in..." required>
 				<button class="btn btn-primary" type="submit">
 					<i class="icon-search"></i>
 				</button>
 			</form>
 
 			<ul class="nav nav-pills-mobile nav-border-anim" role="tablist">
-				<li class="nav-item"><a class="nav-link active" id="mobile-menu-link" data-toggle="tab"
-						href="#mobile-menu-tab" role="tab" aria-controls="mobile-menu-tab" aria-selected="true">Menu</a>
+				<li class="nav-item"><a class="nav-link active"
+					id="mobile-menu-link" data-toggle="tab" href="#mobile-menu-tab"
+					role="tab" aria-controls="mobile-menu-tab" aria-selected="true">Menu</a>
 				</li>
-				<li class="nav-item"><a class="nav-link" id="mobile-cats-link" data-toggle="tab" href="#mobile-cats-tab"
-						role="tab" aria-controls="mobile-cats-tab" aria-selected="false">Categories</a>
+				<li class="nav-item"><a class="nav-link" id="mobile-cats-link"
+					data-toggle="tab" href="#mobile-cats-tab" role="tab"
+					aria-controls="mobile-cats-tab" aria-selected="false">Categories</a>
 				</li>
 			</ul>
 
 			<div class="tab-content">
-				<div class="tab-pane fade show active" id="mobile-menu-tab" role="tabpanel"
-					aria-labelledby="mobile-menu-link">
+				<div class="tab-pane fade show active" id="mobile-menu-tab"
+					role="tabpanel" aria-labelledby="mobile-menu-link">
 					<nav class="mobile-nav">
 						<ul class="mobile-menu">
 							<li class="active"><a href="index.html">Home</a>
@@ -315,8 +329,7 @@
 									<li><a href="index-23.html">23 - fashion left
 											navigation store</a></li>
 									<li><a href="index-24.html">24 - extreme sport store</a></li>
-								</ul>
-							</li>
+								</ul></li>
 							<li><a href="category.html">Shop</a>
 								<ul>
 									<li><a href="category-list.html">Shop List</a></li>
@@ -325,34 +338,32 @@
 									<li><a href="category-4cols.html">Shop Grid 4 Columns</a></li>
 									<li><a href="category-boxed.html"><span>Shop
 												Boxed No Sidebar<span class="tip tip-hot">Hot</span>
-											</span></a></li>
+										</span></a></li>
 									<li><a href="category-fullwidth.html">Shop Fullwidth
 											No Sidebar</a></li>
 									<li><a href="product-category-boxed.html">Product
 											Category Boxed</a></li>
 									<li><a href="product-category-fullwidth.html"><span>Product
 												Category Fullwidth<span class="tip tip-new">New</span>
-											</span></a></li>
+										</span></a></li>
 									<li><a href="cart.html">Cart</a></li>
 									<li><a href="checkout.html">Checkout</a></li>
 									<li><a href="wishlist.html">Wishlist</a></li>
 									<li><a href="#">Lookbook</a></li>
-								</ul>
-							</li>
+								</ul></li>
 							<li><a href="product.html" class="sf-with-ul">Product</a>
 								<ul>
 									<li><a href="product.html">Default</a></li>
 									<li><a href="product-centered.html">Centered</a></li>
 									<li><a href="product-extended.html"><span>Extended
 												Info<span class="tip tip-new">New</span>
-											</span></a></li>
+										</span></a></li>
 									<li><a href="product-gallery.html">Gallery</a></li>
 									<li><a href="product-sticky.html">Sticky Info</a></li>
 									<li><a href="product-sidebar.html">Boxed With Sidebar</a></li>
 									<li><a href="product-fullwidth.html">Full Width</a></li>
 									<li><a href="product-masonry.html">Masonry Sticky Info</a></li>
-								</ul>
-							</li>
+								</ul></li>
 							<li><a href="#">Pages</a>
 								<ul>
 									<li><a href="about.html">About</a>
@@ -360,21 +371,18 @@
 										<ul>
 											<li><a href="about.html">About 01</a></li>
 											<li><a href="about-2.html">About 02</a></li>
-										</ul>
-									</li>
+										</ul></li>
 									<li><a href="contact.html">Contact</a>
 
 										<ul>
 											<li><a href="contact.html">Contact 01</a></li>
 											<li><a href="contact-2.html">Contact 02</a></li>
-										</ul>
-									</li>
+										</ul></li>
 									<li><a href="login.html">Login</a></li>
 									<li><a href="faq.html">FAQs</a></li>
 									<li><a href="404.html">Error 404</a></li>
 									<li><a href="coming-soon.html">Coming Soon</a></li>
-								</ul>
-							</li>
+								</ul></li>
 							<li><a href="blog.html">Blog</a>
 
 								<ul>
@@ -386,8 +394,7 @@
 											<li><a href="blog-grid-3cols.html">Grid 3 columns</a></li>
 											<li><a href="blog-grid-4cols.html">Grid 4 columns</a></li>
 											<li><a href="blog-grid-sidebar.html">Grid sidebar</a></li>
-										</ul>
-									</li>
+										</ul></li>
 									<li><a href="#">Masonry</a>
 										<ul>
 											<li><a href="blog-masonry-2cols.html">Masonry 2
@@ -398,15 +405,13 @@
 													columns</a></li>
 											<li><a href="blog-masonry-sidebar.html">Masonry
 													sidebar</a></li>
-										</ul>
-									</li>
+										</ul></li>
 									<li><a href="#">Mask</a>
 										<ul>
 											<li><a href="blog-mask-grid.html">Blog mask grid</a></li>
 											<li><a href="blog-mask-masonry.html">Blog mask
 													masonry</a></li>
-										</ul>
-									</li>
+										</ul></li>
 									<li><a href="#">Single Post</a>
 										<ul>
 											<li><a href="single.html">Default with sidebar</a></li>
@@ -414,10 +419,8 @@
 													sidebar</a></li>
 											<li><a href="single-fullwidth-sidebar.html">Fullwidth
 													with sidebar</a></li>
-										</ul>
-									</li>
-								</ul>
-							</li>
+										</ul></li>
+								</ul></li>
 							<li><a href="elements-list.html">Elements</a>
 								<ul>
 									<li><a href="elements-products.html">Products</a></li>
@@ -436,14 +439,14 @@
 									<li><a href="elements-portfolio.html">Portfolio</a></li>
 									<li><a href="elements-cta.html">Call to Action</a></li>
 									<li><a href="elements-icon-boxes.html">Icon Boxes</a></li>
-								</ul>
-							</li>
+								</ul></li>
 						</ul>
 					</nav>
 					<!-- End .mobile-nav -->
 				</div>
 				<!-- .End .tab-pane -->
-				<div class="tab-pane fade" id="mobile-cats-tab" role="tabpanel" aria-labelledby="mobile-cats-link">
+				<div class="tab-pane fade" id="mobile-cats-tab" role="tabpanel"
+					aria-labelledby="mobile-cats-link">
 					<nav class="mobile-cats-nav">
 						<ul class="mobile-menu">
 							<li><a th:href="@{|/category|}">Playstation</a>
@@ -462,10 +465,8 @@
 											<li><a href="#">Stealth</a></li>
 											<li><a href="#">Shooter</a></li>
 											<li><a href="#">Horror</a></li>
-										</ul>
-									</li>
-								</ul>
-							</li>
+										</ul></li>
+								</ul></li>
 							<li><a th:href="@{|/category|}">XBOX</a>
 								<ul>
 									<li><a href="#">Nindendo</a>
@@ -482,8 +483,7 @@
 											<li><a href="#">Stealth</a></li>
 											<li><a href="#">Shooter</a></li>
 											<li><a href="#">Horror</a></li>
-										</ul>
-									</li>
+										</ul></li>
 									<li><a href="#">Game Console & Accessories</a>
 
 										<ul>
@@ -493,10 +493,8 @@
 											<li><a href="#">Gaming Chairs</a></li>
 											<li><a href="#">Controller</a></li>
 											<li><a href="#">Digital</a></li>
-										</ul>
-									</li>
-								</ul>
-							</li>
+										</ul></li>
+								</ul></li>
 							<li><a href="#">Nindendo</a></li>
 							<li><a href="#">PC Gaming</a></li>
 							<li><a href="#">Phones & Tablets</a></li>
@@ -513,10 +511,12 @@
 			<!-- End .tab-content -->
 
 			<div class="social-icons">
-				<a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a> <a
-					href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a> <a
-					href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a> <a
-					href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+				<a href="#" class="social-icon" target="_blank" title="Facebook"><i
+					class="icon-facebook-f"></i></a> <a href="#" class="social-icon"
+					target="_blank" title="Twitter"><i class="icon-twitter"></i></a> <a
+					href="#" class="social-icon" target="_blank" title="Instagram"><i
+					class="icon-instagram"></i></a> <a href="#" class="social-icon"
+					target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
 			</div>
 			<!-- End .social-icons -->
 		</div>
