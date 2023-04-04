@@ -92,6 +92,24 @@ app.controller("ordersMana", function($scope, $http) {
 		});
 			
 	};
+	
+	$scope.delete = function(id) {
+		$scope.messageSuccess = "";
+		$scope.messageFailed = "";
+		var url = `${host}/admin/api/order/${id}`;
+		$http.delete(url).then(resp => {
+			var index = $scope.items.findIndex(item => item.id == id);
+			$scope.items[index].poster;
+			
+			$scope.load_all();
+			$scope.reset();
+			$scope.pageTotal = Math.ceil($scope.items.length / 9);
+			$scope.messageSuccess = "Xóa thành công!";
+		}).catch(error => {
+			console.log("Error", error);
+			$scope.messageFailed = "Xóa thất bại!";
+		});
+	}
 
 	// Thực hiện tải toàn bộ order
 	$scope.load_all();
