@@ -44,7 +44,7 @@
 				<tbody id="order-form">
 					<tr ng-repeat="orders in items"
 						ng-if="$index >= minQuantityOrders && $index < maxQuantityOrders">
-						<td>{{orders.username}}</td>
+						<td>{{orders.account.username}}</td>
 						<td>{{orders.createDate}}</td>
 						<td>{{orders.address}}</td>
 						<td>{{orders.email}}</td>
