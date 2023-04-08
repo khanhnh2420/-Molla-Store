@@ -2,7 +2,6 @@ package com.fourTL.controller.admin.Invoicemanagement;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -23,7 +22,6 @@ import com.fourTL.entities.Categories;
 import com.fourTL.entities.MailInfo;
 import com.fourTL.entities.OrderDetails;
 import com.fourTL.entities.Orders;
-
 import com.fourTL.service.MailService;
 
 import jakarta.mail.MessagingException;

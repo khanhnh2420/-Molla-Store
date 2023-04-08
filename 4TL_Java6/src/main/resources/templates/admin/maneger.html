@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layoutadmin/layout.html :: dynamic(~{::title},~{::body})}">
+
+<head>
+<title>ACCOUNTS MANAGEMENT</title>
+</head>
+<body ng-controller="ManegerMana">
+	<div class="body flex-grow-1 px-3">
+		<div class="container-lg">
+			<div class="row flex-row-reverse">
+				<div class="input-group w-25">
+					<input type="search" class="form-control rounded" ng-model="searchInput" id="search"
+						placeholder="Search by Username..." aria-label="Search"
+						aria-describedby="search-addon" />
+					<button type="button" class="btn btn-outline-primary" ng-click="search()">search</button>
+				</div>
+			</div>
+			<table class="table table-bordered text-center"
+				th:if="user.acounts.empty">
+				<caption
+					style="caption-side: top; text-align: center; font-size: 3rem; font-weight: 800;">LIST
+					ACCOUNTS</caption>
+				<thead>
+					<tr>
+						<th scope="col">UserName</th>
+						<th scope="col">Password</th>
+						<th scope="col">FullName</th>
+						<th scope="col">Email</th>
+						<th scope="col">Address</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody id="acounts-form">
+					<tr ng-repeat="acounts in items"
+						ng-if="$index >= minQuantityProduct && $index < maxQuantityProduct">
+						<td>{{acounts.username}}</td>
+						<td>{{acounts.password}}</td>
+						<td>{{acounts.fullname}}</td>
+						<td>{{acounts.email}}</td>
+						<td>{{acounts.address}}</td>
+						<td><a class="btn btn btn-success"
+							ng-click="edit(acounts.username)">Edit</a> <a
+							class="btn btn btn-danger" ng-click="delete(acounts.username)">Delete</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<nav aria-label="...">
+				<ul class="pagination justify-content-end">
+					<li class="page-item" ng-click="prevPage()"
+						style="cursor: pointer;"><a class="page-link">Previous</a></li>
+					<li class="page-item pageNumber"
+						ng-repeat="pageNum in [].constructor(pageTotal) track by $index" id="{{$index + 1}}"
+						style="cursor: pointer;"><a class="page-link"
+						ng-click="changePage($index + 1)">{{$index + 1}}</a></li>
+
+					<li class="page-item" ng-click="nextPage()"
+						style="cursor: pointer;"><a class="page-link">Next</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<script type="text/javascript" src="/admin/js/api/maneger.js"></script>
+	<script>
+		
+	</script>
+	
+</body>
+
+</html>

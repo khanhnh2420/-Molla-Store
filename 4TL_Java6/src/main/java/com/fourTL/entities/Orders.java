@@ -26,7 +26,6 @@ public class Orders  implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
 	String address;
-	String username;
 	String email;
 	String phone;
 	String status;
