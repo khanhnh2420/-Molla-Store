@@ -84,7 +84,7 @@
 										<h3 class="summary-title">Your Order</h3>
 										<!-- End .summary-title -->
 
-										<table class="table table-summary">
+										<table class="table table-summary" >
 											<thead>
 												<tr>
 													<th>Product</th>
@@ -92,17 +92,12 @@
 												</tr>
 											</thead>
 
-											<tbody ng-repeat="item in cart">
-												<tr>
+											<tbody >
+												<tr ng-repeat="item in cart">
 													<td><a href="/product/detail/{{item.product.id}}">{{item.product.name}}</a></td>
 													<td>{{ item.product.price | number:0 }}</td>
 												</tr>
 
-					
-												<tr class="summary-subtotal">
-													<td>Subtotal:</td>
-													<td>{{ item.product.price | number:0 }} </td>
-												</tr>
 												<!-- End .summary-subtotal -->
 												<tr>
 													<td>Shipping:</td>
