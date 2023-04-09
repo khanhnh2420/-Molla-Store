@@ -21,16 +21,16 @@ app.controller("ThanhtoanMana", function($scope, $http) {
 					var url = `${host}/api/createorderdetail`;
 					var item = angular.copy($scope.orderDetailForm);
 					$http.post(url, item).then(resp => {
-						console.log("success");
+						confirm('thanh toán thành công !');
 					}).catch(error => {
-						console.log("Error", error);
+						confirm('thanh toán thất bại!');
 					});
 				}
 			}).catch(error => {
-				console.log("Error", error);
+				confirm('thanh toán thất bại!');
 			});
 		}).catch(error => {
-			console.log("Error", error);
+			confirm('thanh toán thất bại!');
 		});
 
 
